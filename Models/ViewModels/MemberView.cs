@@ -21,6 +21,10 @@ namespace Politiq.Models.ViewModels
         public string LoginID { get; set; }
 
         [Required]
+        [Display(Name = "Email Address")]
+        public string Email { get; set; }
+
+        [Required]
         [Display(Name = "Password")]
         public string Password { get; set; }
 

@@ -19,6 +19,7 @@ namespace Politiq.Models.ObjectManager
             Member.Password = Crypto.HashPassword(member.Password);
             Member.FirstName = member.FirstName;
             Member.LastName = member.LastName;
+            Member.Email = member.Email;
 
             politiq.Members.AddObject(Member);
             politiq.SaveChanges();

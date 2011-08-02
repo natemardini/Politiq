@@ -22,6 +22,7 @@
     <Property Name="FirstName" Type="nchar" Nullable="true" MaxLength="10" />
     <Property Name="LastName" Type="nchar" Nullable="true" MaxLength="10" />
     <Property Name="Password" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" />
     <Property Name="Party_PartyID" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Parties">
@@ -68,6 +69,7 @@
           <Property Name="LastName" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
           <NavigationProperty Name="Party" Relationship="PolitiqModel.MemberParty" FromRole="Member" ToRole="Party" />
+          <Property Type="String" Name="Email" Nullable="false" />
         </EntityType>
         <EntityType Name="Party">
           <Key>
@@ -98,6 +100,7 @@
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -141,7 +144,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Member">
-        <EntityTypeShape EntityType="PolitiqModel.Member" Width="1.5" PointX="1.875" PointY="0.75" Height="1.9802864583333331" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolitiqModel.Member" Width="1.5" PointX="1.875" PointY="0.75" Height="2.364889322916667" IsExpanded="true" />
         <EntityTypeShape EntityType="PolitiqModel.Party" Width="1.5" PointX="6.625" PointY="0.75" Height="1.9802864583333331" />
         <AssociationConnector Association="PolitiqModel.MemberParty">
           <ConnectorPoint PointX="3.375" PointY="1.8362939453125" />

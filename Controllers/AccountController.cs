@@ -99,6 +99,38 @@ namespace Politiq.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPassword(PasswordResetView forgetfulmember)
+        {
+            PolitiqEntities politiq = new PolitiqEntities();
+            Member currentMember = new Member();
+            try
+            {
+                currentMember = politiq.Members.First(member => member.LoginID == forgetfulmember.LoginID);
+
+                if (currentMember != null)
+                {
+                    PasswordResetManager passwordReset = new PasswordResetManager();
+                    passwordReset.ResetPassword(currentMember);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Could not reset password. Contact administrator.");
+                }
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Username does not exist.");
+            }
+            return View();
+           
+        }
+
         // TODO: Include methods for edit profile, delete account & resetting password.
 
     }

@@ -5,3 +5,8 @@ c:\users\c. yehia\documents\visual studio 2010\Projects\Politiq\Politiq\bin\Enti
 c:\users\c. yehia\documents\visual studio 2010\Projects\Politiq\Politiq\obj\Debug\ResolveAssemblyReference.cache
 c:\users\c. yehia\documents\visual studio 2010\Projects\Politiq\Politiq\obj\Debug\Politiq.dll
 c:\users\c. yehia\documents\visual studio 2010\Projects\Politiq\Politiq\obj\Debug\Politiq.pdb
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\bin\Politiq.dll
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\bin\Politiq.pdb
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\obj\Debug\Politiq.dll
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\obj\Debug\Politiq.pdb

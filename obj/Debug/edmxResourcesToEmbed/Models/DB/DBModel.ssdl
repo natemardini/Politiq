@@ -17,6 +17,7 @@
     <Property Name="FirstName" Type="nchar" Nullable="true" MaxLength="10" />
     <Property Name="LastName" Type="nchar" Nullable="true" MaxLength="10" />
     <Property Name="Password" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" />
     <Property Name="Party_PartyID" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Parties">

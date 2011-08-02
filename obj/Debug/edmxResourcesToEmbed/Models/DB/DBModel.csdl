@@ -18,6 +18,7 @@
     <Property Name="LastName" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
     <Property Name="Password" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
     <NavigationProperty Name="Party" Relationship="PolitiqModel.MemberParty" FromRole="Member" ToRole="Party" />
+    <Property Type="String" Name="Email" Nullable="false" />
   </EntityType>
   <EntityType Name="Party">
     <Key>

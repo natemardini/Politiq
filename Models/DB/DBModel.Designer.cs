@@ -145,12 +145,14 @@ namespace Politiq.Models.DB
         /// <param name="memberID">Initial value of the MemberID property.</param>
         /// <param name="loginID">Initial value of the LoginID property.</param>
         /// <param name="password">Initial value of the Password property.</param>
-        public static Member CreateMember(global::System.Int32 memberID, global::System.String loginID, global::System.String password)
+        /// <param name="email">Initial value of the Email property.</param>
+        public static Member CreateMember(global::System.Int32 memberID, global::System.String loginID, global::System.String password, global::System.String email)
         {
             Member member = new Member();
             member.MemberID = memberID;
             member.LoginID = loginID;
             member.Password = password;
+            member.Email = email;
             return member;
         }
 
@@ -279,6 +281,30 @@ namespace Politiq.Models.DB
         private global::System.String _Password;
         partial void OnPasswordChanging(global::System.String value);
         partial void OnPasswordChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Email
+        {
+            get
+            {
+                return _Email;
+            }
+            set
+            {
+                OnEmailChanging(value);
+                ReportPropertyChanging("Email");
+                _Email = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Email");
+                OnEmailChanged();
+            }
+        }
+        private global::System.String _Email;
+        partial void OnEmailChanging(global::System.String value);
+        partial void OnEmailChanged();
 
         #endregion
     
