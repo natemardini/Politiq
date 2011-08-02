@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Politiq.Models.DB;
 using Politiq.Models.ViewModels;
+using System.Web.Helpers;
 
 namespace Politiq.Models.ObjectManager
 {
@@ -15,7 +16,7 @@ namespace Politiq.Models.ObjectManager
         {
             DB.Member Member = new DB.Member();
             Member.LoginID = member.LoginID;
-            Member.Password = member.Password;
+            Member.Password = Crypto.HashPassword(member.Password);
             Member.FirstName = member.FirstName;
             Member.LastName = member.LastName;
 
