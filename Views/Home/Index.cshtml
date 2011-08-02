@@ -3,5 +3,12 @@
 }
 
 <h2>Welcome</h2>
-
-@Html.ActionLink("Click here to sign-up", "Register", "Account")
+@if (User.Identity.IsAuthenticated)
+{
+    <p>@Html.ActionLink("Click here to log out", "Logout", "Account")</p>
+}
+else
+{ 
+    <p>@Html.ActionLink("Click here to log in", "Login", "Account")</p>
+    <p>@Html.ActionLink("Click here to sign-up", "Register", "Account")</p>
+}

@@ -92,6 +92,13 @@ namespace Politiq.Controllers
             return View();
         }
 
+        [Authorize]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
         // TODO: Include methods for edit profile, delete account & resetting password.
 
     }
