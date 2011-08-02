@@ -26,26 +26,33 @@ namespace Politiq.Controllers
         [HttpPost]
         public ActionResult Register(MemberView member)
         {
-            try
+            if (member.Password == member.ConfirmPassword)
             {
-                if (ModelState.IsValid)
+                try
                 {
-                    MemberManager memberManager = new MemberManager();
-                    if (!memberManager.IsMemberLoginIDExist(member.LoginID))
+                    if (ModelState.IsValid)
                     {
-                        memberManager.Add(member);
-                        FormsAuthentication.SetAuthCookie(member.FirstName, false);
-                        return RedirectToAction("Welcome", "Home");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Login ID already taken");
+                        MemberManager memberManager = new MemberManager();
+                        if (!memberManager.IsMemberLoginIDExist(member.LoginID))
+                        {
+                            memberManager.Add(member);
+                            FormsAuthentication.SetAuthCookie(member.FirstName, false);
+                            return RedirectToAction("Welcome", "Home");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Login ID already taken");
+                        }
                     }
                 }
+                catch
+                {
+                    return View(member);
+                }
             }
-            catch
+            else
             {
-                return View(member);
+                ModelState.AddModelError("", "Your password and confirmation do not match.");
             }
 
             return View(member);
