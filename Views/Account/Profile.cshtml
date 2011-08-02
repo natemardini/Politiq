@@ -1,0 +1,40 @@
+﻿@model Politiq.Models.DB.Member
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+<h2>Profile</h2>
+
+<fieldset>
+    <legend>Member</legend>
+
+    <div class="display-label">LoginID</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LoginID)
+    </div>
+
+    <div class="display-label">FirstName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstName)
+    </div>
+
+    <div class="display-label">LastName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastName)
+    </div>
+
+@*    <div class="display-label">Password</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Password)
+    </div>*@
+
+    <div class="display-label">Email</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.MemberID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

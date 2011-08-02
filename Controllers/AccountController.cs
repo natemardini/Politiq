@@ -13,6 +13,8 @@ namespace Politiq.Controllers
 {
     public class AccountController : Controller
     {
+        PolitiqEntities db = new PolitiqEntities();
+
         //
         // GET: /Account/Register
 
@@ -66,8 +68,6 @@ namespace Politiq.Controllers
         [HttpPost]
         public ActionResult Login(LoginView returningMember)
         {
-            PolitiqEntities db = new PolitiqEntities();
-
             var dbMember = from o in db.Members
                            where o.LoginID == returningMember.LoginID
                            select o;
@@ -107,21 +107,12 @@ namespace Politiq.Controllers
         [HttpPost]
         public ActionResult ForgotPassword(PasswordResetView forgetfulmember)
         {
-            PolitiqEntities politiq = new PolitiqEntities();
-            Member currentMember = new Member();
             try
             {
-                currentMember = politiq.Members.First(member => member.LoginID == forgetfulmember.LoginID);
+                Member currentMember = db.Members.First(member => member.LoginID == forgetfulmember.LoginID);
 
-                if (currentMember != null)
-                {
-                    PasswordResetManager passwordReset = new PasswordResetManager();
-                    passwordReset.ResetPassword(currentMember);
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Could not reset password. Contact administrator.");
-                }
+                PasswordResetManager passwordReset = new PasswordResetManager();
+                passwordReset.ResetPassword(currentMember);
             }
             catch (Exception)
             {
@@ -131,7 +122,12 @@ namespace Politiq.Controllers
            
         }
 
-        // TODO: Include methods for edit profile, delete account & resetting password.
+        public ActionResult Profile(int id)
+        {
+            return View(db.Members.First(member => member.MemberID == id));
+        }
+
+        // TODO: Include methods for edit profile & delete account.
 
     }
 }
