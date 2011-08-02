@@ -20,7 +20,7 @@ namespace Politiq.Models.ObjectManager
             Member.FirstName = member.FirstName;
             Member.LastName = member.LastName;
 
-            politiq.AddToMembers(Member);
+            politiq.Members.AddObject(Member);
             politiq.SaveChanges();
         }
 
