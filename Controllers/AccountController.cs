@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Politiq.Models.ViewModels;
 using Politiq.Models.ObjectManager;
 using System.Web.Security;
+using Politiq.Models.DB;
+using System.Web.Helpers;
 
 namespace Politiq.Controllers
 {
@@ -49,7 +51,41 @@ namespace Politiq.Controllers
             return View(member);
         }
 
-        // TODO: Include methods for Login, edit profile and delete account.
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(LoginView returningMember)
+        {
+            PolitiqEntities db = new PolitiqEntities();
+
+            var dbMember = from o in db.Members
+                           where o.LoginID == returningMember.LoginID
+                           select o;
+
+            if (dbMember.Any())
+            {
+                var currentMember = dbMember.Single();
+                if (Crypto.VerifyHashedPassword(currentMember.Password, returningMember.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(currentMember.FirstName, false);
+                    return RedirectToAction("Welcome", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Incorrect password.");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Username not recognized.");
+            }
+            return View();
+        }
+
+        // TODO: Include methods for edit profile, delete account and resetting password.
 
     }
 }
