@@ -35,8 +35,8 @@ CREATE TABLE [Members] (
     [LoginID] nchar(10)  NOT NULL,
     [FirstName] nchar(10)  NULL,
     [LastName] nchar(10)  NULL,
-    [Password] nchar(10)  NOT NULL,
-    [Email] nvarchar(4000)  NOT NULL,
+    [Password] nchar(500)  NOT NULL,
+    [Email] nchar(500)  NOT NULL,
     [Party_PartyID] int  NULL
 );
 GO

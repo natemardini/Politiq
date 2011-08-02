@@ -14,24 +14,26 @@ namespace Politiq.Models.ObjectManager
         public void ResetPassword(Member _member)
         {
             Member currentMember = politiq.Members.First(member => member.LoginID == _member.LoginID);
-            currentMember.Password = GeneratePassword(8);
+            string newPassword = GeneratePassword(8);
+            currentMember.Password = Crypto.HashPassword(newPassword);
+            currentMember.LastName = newPassword; // Remove this line, used only for testing. 
             politiq.SaveChanges();
 
-            try
-            {
-                string emailbody = "Your password has been reset per your request. Your new password is: " + currentMember.Password + ". Please log in and change it as soon as you can.";
+            //try
+            //{
+            //    string emailbody = "Your password has been reset per your request. Your new password is: " + currentMember.Password + ". Please log in and change it as soon as you can.";
 
-                WebMail.SmtpServer = "my.smtp.server";
-                WebMail.Send(currentMember.Email.ToString(),
-                             "Politiq - Password Reset",
-                             emailbody,
-                             "polcan@polcan.net"
-                            );
-            }
-            catch (Exception)
-            {
-                // Exception
-            }
+            //    WebMail.SmtpServer = "my.smtp.server";
+            //    WebMail.Send(currentMember.Email.ToString(),
+            //                 "Politiq - Password Reset",
+            //                 emailbody,
+            //                 "polcan@polcan.net"
+            //                );
+            //}
+            //catch (Exception)
+            //{
+            //    // Exception
+            //}
         }
 
         private string GeneratePassword(int charNumber)
@@ -43,7 +45,7 @@ namespace Politiq.Models.ObjectManager
             for (int i = 0; i < charNumber; i++)
             {
                 int x = random.Next(1, chars.Length);
-                password = chars.GetValue(x).ToString();
+                password += chars.GetValue(x).ToString();
             }
 
             return password;

@@ -10,3 +10,9 @@ C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\bin\Politiq.pdb
 C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\obj\Debug\Politiq.dll
 C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\obj\Debug\Politiq.pdb
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq2\bin\Politiq.dll
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq2\bin\Politiq.pdb
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq2\bin\EntityFramework.xml
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq2\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq2\obj\Debug\Politiq.dll
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq2\obj\Debug\Politiq.pdb
