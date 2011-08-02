@@ -92,7 +92,7 @@ namespace Politiq.Controllers
             return View();
         }
 
-        // TODO: Include methods for edit profile, delete account and resetting password.
+        // TODO: Include methods for edit profile, delete account & resetting password.
 
     }
 }
