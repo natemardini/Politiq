@@ -1,0 +1,7 @@
+c:\users\c. yehia\documents\visual studio 2010\Projects\Politiq\Politiq\bin\Politiq.dll
+c:\users\c. yehia\documents\visual studio 2010\Projects\Politiq\Politiq\bin\Politiq.pdb
+c:\users\c. yehia\documents\visual studio 2010\Projects\Politiq\Politiq\bin\EntityFramework.dll
+c:\users\c. yehia\documents\visual studio 2010\Projects\Politiq\Politiq\bin\EntityFramework.xml
+c:\users\c. yehia\documents\visual studio 2010\Projects\Politiq\Politiq\obj\Debug\ResolveAssemblyReference.cache
+c:\users\c. yehia\documents\visual studio 2010\Projects\Politiq\Politiq\obj\Debug\Politiq.dll
+c:\users\c. yehia\documents\visual studio 2010\Projects\Politiq\Politiq\obj\Debug\Politiq.pdb
