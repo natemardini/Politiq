@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PolitiqModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="PolitiqModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
   <EntityContainer Name="PolitiqModelStoreContainer">
     <EntitySet Name="Members" EntityType="PolitiqModel.Store.Members" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Parties" EntityType="PolitiqModel.Store.Parties" store:Type="Tables" Schema="dbo" />
@@ -22,7 +22,7 @@
     <Property Name="FirstName" Type="nchar" Nullable="true" MaxLength="10" />
     <Property Name="LastName" Type="nchar" Nullable="true" MaxLength="10" />
     <Property Name="Password" Type="nchar" Nullable="false" MaxLength="10" />
-    <Property Name="Email" Type="nvarchar" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Party_PartyID" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Parties">
@@ -30,8 +30,8 @@
       <PropertyRef Name="PartyID" />
     </Key>
     <Property Name="PartyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="PartyName" Type="nvarchar" Nullable="false" />
-    <Property Name="PartyLongName" Type="nvarchar" Nullable="false" />
+    <Property Name="PartyName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PartyLongName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Seats" Type="int" Nullable="false" />
     <Property Name="Side" Type="int" Nullable="false" />
   </EntityType>
