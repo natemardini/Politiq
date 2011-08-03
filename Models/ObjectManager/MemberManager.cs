@@ -5,6 +5,7 @@ using System.Web;
 using Politiq.Models.DB;
 using Politiq.Models.ViewModels;
 using System.Web.Helpers;
+using System.Data.Objects;
 
 namespace Politiq.Models.ObjectManager
 {
@@ -12,7 +13,7 @@ namespace Politiq.Models.ObjectManager
     {
         private PolitiqEntities politiq = new PolitiqEntities();
 
-        public void Add(MemberView member)
+        public void Add(NewMemberView member)
         {
             DB.Member Member = new DB.Member();
             Member.LoginID = member.LoginID;
@@ -22,6 +23,21 @@ namespace Politiq.Models.ObjectManager
             Member.Email = member.Email;
 
             politiq.Members.AddObject(Member);
+            politiq.SaveChanges();
+        }
+
+        public void Change(ChangeMemberView member)
+        {
+            Member Member = politiq.Members.First(m => m.MemberID == member.MemberID);
+
+            Member.FirstName = member.FirstName.TrimEnd();
+            Member.LastName = member.LastName.TrimEnd();
+            Member.Email = member.Email.TrimEnd();
+            if (member.Password != null && member.Password.StartsWith(" ") == false)
+            {
+                Member.Password = Crypto.HashPassword(member.Password);
+            }
+
             politiq.SaveChanges();
         }
 

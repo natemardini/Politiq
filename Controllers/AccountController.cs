@@ -15,7 +15,6 @@ namespace Politiq.Controllers
     {
         PolitiqEntities db = new PolitiqEntities();
 
-        //
         // GET: /Account/Register
 
         public ActionResult Register()
@@ -23,10 +22,10 @@ namespace Politiq.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Register
+
         [HttpPost]
-        public ActionResult Register(MemberView member)
+        public ActionResult Register(NewMemberView member)
         {
             if (member.Password == member.ConfirmPassword)
             {
@@ -60,37 +59,41 @@ namespace Politiq.Controllers
             return View(member);
         }
 
+        // GET: /Account/Login
+
         public ActionResult Login()
         {
             return View();
         }
 
+        // POST: /Account/Login
+
         [HttpPost]
         public ActionResult Login(LoginView returningMember)
         {
-            var dbMember = from o in db.Members
-                           where o.LoginID == returningMember.LoginID
-                           select o;
-
-            if (dbMember.Any())
+            try
             {
-                var currentMember = dbMember.Single();
+                Member currentMember = db.Members.First(member => member.LoginID == returningMember.LoginID);
+
                 if (Crypto.VerifyHashedPassword(currentMember.Password, returningMember.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(currentMember.FirstName, false);
+                    FormsAuthentication.SetAuthCookie(currentMember.LoginID, returningMember.RememberMe);
                     return RedirectToAction("Welcome", "Home");
                 }
                 else
                 {
                     ModelState.AddModelError("", "Incorrect password.");
                 }
+
             }
-            else
+            catch
             {
-                ModelState.AddModelError("", "Username not recognized.");
+                ModelState.AddModelError("", "Username not reccognized.");
             }
             return View();
         }
+
+        // GET: /Account/Logout
 
         [Authorize]
         public ActionResult Logout()
@@ -99,10 +102,14 @@ namespace Politiq.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // GET: /Account/ForgotPassword
+
         public ActionResult ForgotPassword()
         {
             return View();
         }
+
+        // POST: /Account/ForgotPassword
 
         [HttpPost]
         public ActionResult ForgotPassword(PasswordResetView forgetfulmember)
@@ -122,12 +129,63 @@ namespace Politiq.Controllers
            
         }
 
+        // GET: /Account/Profile?id=#
+
         public ActionResult Profile(int id)
         {
-            return View(db.Members.First(member => member.MemberID == id));
+            return View(db.Members.First(member => member.MemberID == id));  
         }
 
-        // TODO: Include methods for edit profile & delete account.
+        // GET: /Account/Edit?id=#
+
+        public ActionResult Edit(int id)
+        {
+            Member currentMember = db.Members.First(member => member.MemberID == id);
+            ChangeMemberView edittingMember = new ChangeMemberView();
+            edittingMember.MemberID = currentMember.MemberID;
+            edittingMember.FirstName = currentMember.FirstName;
+            edittingMember.LastName = currentMember.LastName;
+            edittingMember.Email = currentMember.Email;
+            currentMember.Password = "";
+            return View(edittingMember);
+        }
+
+        // POST: /Account/Edit?id=#
+        [HttpPost]
+        public ActionResult Edit(ChangeMemberView edittedmember)
+        {
+            try
+            {
+                MemberManager memberManager = new MemberManager();
+                memberManager.Change(edittedmember);
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Could not save changes.");
+                return View();
+            }
+        }
+
+        // GET: /Account/Delete?id=#
+
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                db.DeleteObject(db.Members.First(member => member.MemberID == id));
+                db.SaveChanges();
+
+                FormsAuthentication.SignOut();
+                return RedirectToAction("Index", "Home");
+            }
+            catch(Exception)
+            {   
+            }
+            return RedirectToAction("Profile");
+        }
+
+        // TODO: Include methods for edit profile.
 
     }
 }
