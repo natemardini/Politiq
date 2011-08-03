@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Politiq.Models.ViewModels;
+using Politiq.Models.ObjectModel;
 using Politiq.Models.ObjectManager;
 using System.Web.Security;
-using Politiq.Models.DB;
+using Politiq.Models;
 using System.Web.Helpers;
 
 namespace Politiq.Controllers
 {
     public class AccountController : Controller
     {
-        PolitiqEntities db = new PolitiqEntities();
+        DAL db = new DAL();
 
         // GET: /Account/Register
 
@@ -25,38 +25,33 @@ namespace Politiq.Controllers
         // POST: /Account/Register
 
         [HttpPost]
-        public ActionResult Register(NewMemberView member)
+        public ActionResult Register(NewMemberModel newMember)
         {
-            if (member.Password == member.ConfirmPassword)
-            {
                 try
                 {
                     if (ModelState.IsValid)
                     {
                         MemberManager memberManager = new MemberManager();
-                        if (!memberManager.IsMemberLoginIDExist(member.LoginID))
+                        if (!memberManager.UsernameExist(newMember.Username))
                         {
-                            memberManager.Add(member);
-                            FormsAuthentication.SetAuthCookie(member.FirstName, false);
+                            memberManager.Add(newMember);
+                            FormsAuthentication.SetAuthCookie(newMember.FirstName, false);
                             return RedirectToAction("Welcome", "Home");
                         }
                         else
                         {
-                            ModelState.AddModelError("", "Login ID already taken");
+                            ModelState.AddModelError("", "Username already taken.");
+                            
                         }
                     }
                 }
-                catch
+                catch (Exception e)
                 {
-                    return View(member);
+                    ModelState.AddModelError("", e.ToString());
+                    
                 }
-            }
-            else
-            {
-                ModelState.AddModelError("", "Your password and confirmation do not match.");
-            }
 
-            return View(member);
+                return View(newMember);
         }
 
         // GET: /Account/Login
@@ -69,15 +64,15 @@ namespace Politiq.Controllers
         // POST: /Account/Login
 
         [HttpPost]
-        public ActionResult Login(LoginView returningMember)
+        public ActionResult Login(LoginMemberModel returningMember)
         {
             try
             {
-                Member currentMember = db.Members.First(member => member.LoginID == returningMember.LoginID);
+                Member currentMember = db.Members.First(member => member.Username == returningMember.Username);
 
                 if (Crypto.VerifyHashedPassword(currentMember.Password, returningMember.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(currentMember.LoginID, returningMember.RememberMe);
+                    FormsAuthentication.SetAuthCookie(currentMember.Username, returningMember.RememberMe);
                     return RedirectToAction("Welcome", "Home");
                 }
                 else
@@ -112,14 +107,14 @@ namespace Politiq.Controllers
         // POST: /Account/ForgotPassword
 
         [HttpPost]
-        public ActionResult ForgotPassword(PasswordResetView forgetfulmember)
+        public ActionResult ForgotPassword(ResetMemberPasswordModel member)
         {
             try
             {
-                Member currentMember = db.Members.First(member => member.LoginID == forgetfulmember.LoginID);
+                Member currentMember = db.Members.Single(m => m.Username == member.Username);
 
-                PasswordResetManager passwordReset = new PasswordResetManager();
-                passwordReset.ResetPassword(currentMember);
+                MemberManager memberManager = new MemberManager();
+                memberManager.ResetPassword(currentMember);
             }
             catch (Exception)
             {
@@ -133,31 +128,33 @@ namespace Politiq.Controllers
 
         public ActionResult Profile(int id)
         {
-            return View(db.Members.First(member => member.MemberID == id));  
+            return View(db.Members.Find(id));  
         }
 
         // GET: /Account/Edit?id=#
 
         public ActionResult Edit(int id)
         {
-            Member currentMember = db.Members.First(member => member.MemberID == id);
-            ChangeMemberView edittingMember = new ChangeMemberView();
-            edittingMember.MemberID = currentMember.MemberID;
-            edittingMember.FirstName = currentMember.FirstName;
-            edittingMember.LastName = currentMember.LastName;
-            edittingMember.Email = currentMember.Email;
-            currentMember.Password = "";
-            return View(edittingMember);
+            Member currentMember = db.Members.Find(id);
+            ChangeMemberModel editMember = new ChangeMemberModel
+            {
+                MemberID = currentMember.MemberID,
+                FirstName = currentMember.FirstName,
+                LastName = currentMember.LastName,
+                Email = currentMember.Email,
+                Password = ""
+            };
+            return View(editMember);
         }
 
         // POST: /Account/Edit?id=#
         [HttpPost]
-        public ActionResult Edit(ChangeMemberView edittedmember)
+        public ActionResult Edit(ChangeMemberModel edittedMember)
         {
             try
             {
                 MemberManager memberManager = new MemberManager();
-                memberManager.Change(edittedmember);
+                memberManager.Change(edittedMember);
                 return RedirectToAction("Index", "Home");
             }
             catch
@@ -168,12 +165,12 @@ namespace Politiq.Controllers
         }
 
         // GET: /Account/Delete?id=#
-
+        [HttpDelete]
         public ActionResult Delete(int id)
         {
             try
             {
-                db.DeleteObject(db.Members.First(member => member.MemberID == id));
+                db.Members.Remove(db.Members.Find(id));
                 db.SaveChanges();
 
                 FormsAuthentication.SignOut();

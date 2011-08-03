@@ -2,50 +2,91 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Politiq.Models.DB;
-using Politiq.Models.ViewModels;
 using System.Web.Helpers;
 using System.Data.Objects;
+using Politiq.Models.ObjectModel;
+
 
 namespace Politiq.Models.ObjectManager
 {
     public class MemberManager
     {
-        private PolitiqEntities politiq = new PolitiqEntities();
+        private DAL db = new DAL();
 
-        public void Add(NewMemberView member)
+        public void Add(NewMemberModel newMember)
         {
-            DB.Member Member = new DB.Member();
-            Member.LoginID = member.LoginID;
-            Member.Password = Crypto.HashPassword(member.Password);
-            Member.FirstName = member.FirstName;
-            Member.LastName = member.LastName;
-            Member.Email = member.Email;
+            Member member = new Member
+            {
+                Username = newMember.Username,
+                FirstName = newMember.FirstName,
+                LastName = newMember.LastName,
+                Email = newMember.Email,
+                Password = Crypto.HashPassword(newMember.Password)
+            };
 
-            politiq.Members.AddObject(Member);
-            politiq.SaveChanges();
+            db.Members.Add(member);
+            db.SaveChanges();
+            
         }
 
-        public void Change(ChangeMemberView member)
+        public void Change(ChangeMemberModel member)
         {
-            Member Member = politiq.Members.First(m => m.MemberID == member.MemberID);
+            Member currentMember = db.Members.Find(member.MemberID);
 
-            Member.FirstName = member.FirstName.TrimEnd();
-            Member.LastName = member.LastName.TrimEnd();
-            Member.Email = member.Email.TrimEnd();
+            currentMember.FirstName = member.FirstName.TrimEnd();
+            currentMember.LastName = member.LastName.TrimEnd();
+            currentMember.Email = member.Email.TrimEnd();
             if (member.Password != null && member.Password.StartsWith(" ") == false)
             {
-                Member.Password = Crypto.HashPassword(member.Password);
+                currentMember.Password = Crypto.HashPassword(member.Password);
             }
 
-            politiq.SaveChanges();
+            db.SaveChanges();
         }
 
-        public bool IsMemberLoginIDExist(string memberLogIn)
+        public bool UsernameExist(string memberLogIn)
         {
-            return (from o in politiq.Members
-                    where o.LoginID == memberLogIn
+            return (from o in db.Members
+                    where o.Username == memberLogIn
                     select o).Any();
+        }
+
+        public void ResetPassword(Member member)
+        {
+            string newPassword = GeneratePassword(8);
+            member.Password = Crypto.HashPassword(newPassword);
+            db.SaveChanges();
+
+            //try
+            //{
+            //    string emailbody = "Your password has been reset per your request. Your new password is: " + currentMember.Password + ". Please log in and change it as soon as you can.";
+
+            //    WebMail.SmtpServer = "my.smtp.server";
+            //    WebMail.Send(currentMember.Email.ToString(),
+            //                 "Politiq - Password Reset",
+            //                 emailbody,
+            //                 "polcan@polcan.net"
+            //                );
+            //}
+            //catch (Exception)
+            //{
+            //    // Exception
+            //}
+        }
+
+        private string GeneratePassword(int charNumber)
+        {
+            char[] chars = "abcdefghijklmnopqrstuvwxyz1234567890".ToCharArray();
+            string password = string.Empty;
+            Random random = new Random();
+
+            for (int i = 0; i < charNumber; i++)
+            {
+                int x = random.Next(1, chars.Length);
+                password += chars.GetValue(x).ToString();
+            }
+
+            return password;
         }
     }
 }

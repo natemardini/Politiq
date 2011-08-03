@@ -1,4 +1,4 @@
-﻿@model Politiq.Models.ViewModels.MemberView
+﻿@model Politiq.Models.ObjectModel.NewMemberModel
 
 @{
     ViewBag.Title = "Register";
@@ -31,11 +31,11 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.LoginID)
+            @Html.LabelFor(model => model.Username)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.LoginID)
-            @Html.ValidationMessageFor(model => model.LoginID)
+            @Html.EditorFor(model => model.Username)
+            @Html.ValidationMessageFor(model => model.Username)
         </div>
 
         <div class="editor-label">

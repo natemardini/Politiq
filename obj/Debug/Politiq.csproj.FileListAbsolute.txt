@@ -16,3 +16,6 @@ C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq2\bin\EntityFrame
 C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq2\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq2\obj\Debug\Politiq.dll
 C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq2\obj\Debug\Politiq.pdb
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq2\bin\DataAnnotationsExtensions.ClientValidation.dll
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq2\bin\DataAnnotationsExtensions.dll
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq2\bin\WebActivator.dll
