@@ -72,7 +72,7 @@ namespace Politiq.Controllers
 
                 if (Crypto.VerifyHashedPassword(currentMember.Password, returningMember.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(currentMember.Username, returningMember.RememberMe);
+                    FormsAuthentication.SetAuthCookie(returningMember.Username.ToLower(), returningMember.RememberMe);
                     return RedirectToAction("Welcome", "Home");
                 }
                 else
@@ -166,23 +166,14 @@ namespace Politiq.Controllers
 
         // GET: /Account/Delete?id=#
         [HttpDelete]
-        public ActionResult Delete(int id)
+        public EmptyResult DeleteConfirm(int id)
         {
-            try
-            {
+
                 db.Members.Remove(db.Members.Find(id));
                 db.SaveChanges();
-
                 FormsAuthentication.SignOut();
-                return RedirectToAction("Index", "Home");
-            }
-            catch(Exception)
-            {   
-            }
-            return RedirectToAction("Profile");
+
+                return null;
         }
-
-        // TODO: Include methods for edit profile.
-
     }
 }

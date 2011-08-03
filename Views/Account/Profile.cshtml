@@ -36,10 +36,13 @@
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.MemberID }) |
-    @Ajax.ActionLink("Delete", "Delete",  new {id = Model.MemberID},       
-                     new AjaxOptions {                    
-                     HttpMethod = "DELETE",                   
-                     Confirm = "Are you sure you want to delete this account?"}
+    @Ajax.ActionLink("Delete", "DeleteConfirm", "Account", new { id = Model.MemberID },
+                     new AjaxOptions
+                     {
+                         HttpMethod = "Delete",
+                         Confirm = "Are you sure you want to delete this account?",
+                         OnComplete = "deleteComplete"
+                     }
                      ) |
     @Html.ActionLink("Back to List", "Index")
 </p>
