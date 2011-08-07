@@ -11,49 +11,53 @@ namespace Politiq.Models.ObjectModel
 
     public class Legislation
     {
-        public int LegislationID { get; private set; }
+        public virtual int LegislationID { get; private set; }
 
        
-        public int BillNumber { get; set; }
+        public virtual int BillNumber { get; set; }
 
         [Required]
-        public int OriginatingChamber { get; set; }
+        public virtual int OriginatingChamber { get; set; }
 
         
-        public int BillType { get; set; }
+        public virtual int BillType { get; set; }
 
         [Required]
-        public string LongTitle { get; set; }
+        public virtual string LongTitle { get; set; }
 
-        public string ShortTile { get; set; }
+        public virtual string ShortTile { get; set; }
 
-        public string Preamble { get; set; }
+        public virtual string Preamble { get; set; }
 
         
-        public ICollection<Provision> Provisions { get; set; }
+        public virtual ICollection<Provision> Provisions { get; set; }
 
-        public int Stage { get; set; }
+        public virtual int Stage { get; set; }
 
         [Required]
-        public Member Sponsor { get; set; }
+        public virtual Member Sponsor { get; set; }
 
-        public LegislativeSession Parliament { get; set; }
+        public virtual LegislativeSession Parliament { get; set; }
     }
 
     public class Provision
     {
-        public int ProvisionID { get; private set; }
+        public virtual int ProvisionID { get; private set; }
 
         [Required]
-        public decimal Article { get; set; }
+        public virtual decimal Article { get; set; }
 
         [Required]
-        public string Text { get; set; }
+        public virtual string Text { get; set; }
 
-        public OiC EnactingOrder { get; set; }
+        public virtual OiC EnactingOrder { get; set; }
 
         [Required]
-        public Member Proponent { get; set; }
+        public virtual Member Proponent { get; set; }
+
+        public virtual Legislation InBill { get; set; }
+
+        public virtual DateTime Enactment { get; set; }
     }
 
     public class OiC
@@ -117,4 +121,12 @@ namespace Politiq.Models.ObjectModel
 
     }
 
+    public class NewProvisionView
+    {
+        [Required]
+        public string Text { get; set; }
+
+        public DateTime EnactingDate { get; set; }
+
+    }
 }

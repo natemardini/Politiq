@@ -7,12 +7,14 @@ using System.Web;
 using System.Web.Mvc;
 using Politiq.Models.ObjectModel;
 using Politiq.Models;
+using Politiq.Models.ObjectManager;
 
 namespace Politiq.Controllers
 { 
     public class ProvisionController : Controller
     {
         private DAL db = new DAL();
+        Legislation legislation; 
 
         //
         // GET: /Provision/
@@ -34,8 +36,11 @@ namespace Politiq.Controllers
         //
         // GET: /Provision/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int bill)
         {
+            this.legislation = db.Legislations.Find(bill);
+            ViewBag.BillName = this.legislation.LongTitle.ToString();
+            ViewBag.ArticleNumber = (this.legislation.Provisions.Count + 1).ToString();
             return View();
         } 
 
@@ -43,12 +48,12 @@ namespace Politiq.Controllers
         // POST: /Provision/Create
 
         [HttpPost]
-        public ActionResult Create(Provision provision)
+        public ActionResult Create(NewProvisionView provision)
         {
             if (ModelState.IsValid)
             {
-                db.Provisions.Add(provision);
-                db.SaveChanges();
+                LegislationManager billManager = new LegislationManager();
+                billManager.Include(provision, int.Parse(legislation.LegislationID.ToString()));
                 return RedirectToAction("Index");  
             }
 

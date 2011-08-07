@@ -51,9 +51,9 @@ namespace Politiq.Controllers
             if (ModelState.IsValid)
             {
                 LegislationManager billManager = new LegislationManager();
-                billManager.Add(legislation);
+                var savedLegislation = billManager.Save(legislation);
 
-                return RedirectToAction("Index");  
+                return RedirectToAction("Create", "Provision", new { bill = int.Parse(savedLegislation.LegislationID.ToString()) });  
             }
 
             return View(legislation);
