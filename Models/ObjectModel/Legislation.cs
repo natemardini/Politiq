@@ -7,11 +7,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Politiq.Models.ObjectModel
 {
+    // Model Entities
+
     public class Legislation
     {
         public int LegislationID { get; private set; }
 
-        [Required]
+       
         public int BillNumber { get; set; }
 
         [Required]
@@ -27,7 +29,7 @@ namespace Politiq.Models.ObjectModel
 
         public string Preamble { get; set; }
 
-        [Required]
+        
         public ICollection<Provision> Provisions { get; set; }
 
         public int Stage { get; set; }
@@ -91,6 +93,28 @@ namespace Politiq.Models.ObjectModel
         public DateTime Ending { get; set; }
 
         public ICollection<Legislation> Bills { get; set; }
+    }
+
+    // Model Views
+
+    public class NewLegislationView
+    {
+        [Required]
+        public int OriginatingChamber { get; set; }
+
+
+        public int BillType { get; set; }
+
+        [Required]
+        public string LongTitle { get; set; }
+
+        public string ShortTile { get; set; }
+
+        public string Preamble { get; set; }
+
+
+    //    public ICollection<Provision> Provisions { get; set; }
+
     }
 
 }

@@ -7,33 +7,32 @@ using System.Web;
 using System.Web.Mvc;
 using Politiq.Models.ObjectModel;
 using Politiq.Models;
-using Politiq.Models.ObjectManager;
 
 namespace Politiq.Controllers
 { 
-    public class BillController : Controller
+    public class ProvisionController : Controller
     {
         private DAL db = new DAL();
 
         //
-        // GET: /Bill/
+        // GET: /Provision/
 
         public ViewResult Index()
         {
-            return View(db.Legislations.ToList());
+            return View(db.Provisions.ToList());
         }
 
         //
-        // GET: /Bill/Details/5
+        // GET: /Provision/Details/5
 
         public ViewResult Details(int id)
         {
-            Legislation legislation = db.Legislations.Find(id);
-            return View(legislation);
+            Provision provision = db.Provisions.Find(id);
+            return View(provision);
         }
 
         //
-        // GET: /Bill/Create
+        // GET: /Provision/Create
 
         public ActionResult Create()
         {
@@ -41,65 +40,62 @@ namespace Politiq.Controllers
         } 
 
         //
-        // POST: /Bill/Create
+        // POST: /Provision/Create
 
         [HttpPost]
-        public ActionResult Create(NewLegislationView legislation)
+        public ActionResult Create(Provision provision)
         {
-            legislation.OriginatingChamber = 1;    // House of Commons by default, hard-coded. Change if Senate included.
-
             if (ModelState.IsValid)
             {
-                LegislationManager billManager = new LegislationManager();
-                billManager.Add(legislation);
-
+                db.Provisions.Add(provision);
+                db.SaveChanges();
                 return RedirectToAction("Index");  
             }
 
-            return View(legislation);
+            return View(provision);
         }
         
         //
-        // GET: /Bill/Edit/5
+        // GET: /Provision/Edit/5
  
         public ActionResult Edit(int id)
         {
-            Legislation legislation = db.Legislations.Find(id);
-            return View(legislation);
+            Provision provision = db.Provisions.Find(id);
+            return View(provision);
         }
 
         //
-        // POST: /Bill/Edit/5
+        // POST: /Provision/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Legislation legislation)
+        public ActionResult Edit(Provision provision)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(legislation).State = EntityState.Modified;
+                db.Entry(provision).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(legislation);
+            return View(provision);
         }
 
         //
-        // GET: /Bill/Delete/5
+        // GET: /Provision/Delete/5
  
         public ActionResult Delete(int id)
         {
-            Legislation legislation = db.Legislations.Find(id);
-            return View(legislation);
+            Provision provision = db.Provisions.Find(id);
+            return View(provision);
         }
 
         //
-        // POST: /Bill/Delete/5
+        // POST: /Provision/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {            
-            Legislation legislation = db.Legislations.Find(id);
-            db.Legislations.Remove(legislation);
+            Provision provision = db.Provisions.Find(id);
+            db.Provisions.Remove(provision);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

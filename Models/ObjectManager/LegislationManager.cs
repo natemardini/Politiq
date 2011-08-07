@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Politiq.Models.ObjectModel;
 using Politiq.Models;
+using System.Data.SqlTypes;
 
 namespace Politiq.Models.ObjectManager
 {
@@ -11,31 +12,53 @@ namespace Politiq.Models.ObjectManager
     {
         DAL db = new DAL();
 
+        public void Add(NewLegislationView legislation)
+        {
+            Legislation newLegislation = new Legislation();
+            // Simple transfers
+            newLegislation.ShortTile = legislation.ShortTile;
+            newLegislation.LongTitle = legislation.LongTitle;
+            newLegislation.BillType = legislation.BillType;
+            newLegislation.OriginatingChamber = legislation.OriginatingChamber;
+            newLegislation.Preamble = legislation.Preamble;
+            
+            // More complicated properties
+            newLegislation.Stage = 1;
+            this.NumberBill(newLegislation); // Provides bill number
+            newLegislation.Parliament = db.LegislativeSessions.First(p => p.Ending >= DateTime.Today);
+            newLegislation.Sponsor = db.Members.Single(m => m.Username == HttpContext.Current.User.Identity.Name);
+
+            // And save
+            db.Legislations.Add(newLegislation);
+            db.SaveChanges();
+        }
+
+        public void NumberBill(Legislation legislation)
+        {
+            switch (legislation.BillType)
+            {
+            case 1:
+                    var currentPublicBills = db.Legislations.Where(l => l.BillType == 1 & l.Parliament.Ending >= DateTime.Today);
+
+                    legislation.BillNumber = currentPublicBills.Count() + 1;
+                    break;
+            case 2:
+                    var currentPrivateBills = db.Legislations.Where(l => l.BillType == 2 & l.Parliament.Ending >= DateTime.Today);
+
+                    legislation.BillNumber = currentPrivateBills.Count() + 201;
+                    break;
+            }
+        }
+
         public string GenerateStyle(Legislation legislation)
         {
-            string style_letter;
-            if (legislation.OriginatingChamber == 2)
-            {
-                style_letter = "S";
-            }
-            else
-            {
-                style_letter = "C";
-            }
+            string style_letter = (legislation.OriginatingChamber == 2) ? "S" : "C";
 
-            if (legislation.BillType == 1)
+            if (legislation.BillNumber == null)
             {
-                var currentPublicBills = db.Legislations.Where(l => l.BillType == 1 & l.Parliament.LegislativeSessionID == legislation.Parliament.LegislativeSessionID);
-
-                legislation.BillNumber = currentPublicBills.Count() + 1;
+                this.NumberBill(legislation);
             }
-            else
-            {
-                var currentPrivateBills = db.Legislations.Where(l => l.BillType == 2 & l.Parliament.LegislativeSessionID == legislation.Parliament.LegislativeSessionID);
-
-                legislation.BillNumber = currentPrivateBills.Count() + 201;
-            }
-
+       
             return style_letter + "-" + legislation.BillNumber.ToString();
         }
     }

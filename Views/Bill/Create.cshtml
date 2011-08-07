@@ -1,4 +1,4 @@
-﻿@model Politiq.Models.ObjectModel.Legislation
+﻿@model Politiq.Models.ObjectModel.NewLegislationView
 
 @{
     ViewBag.Title = "Create";
@@ -12,23 +12,7 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Legislation</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.BillNumber)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.BillNumber)
-            @Html.ValidationMessageFor(model => model.BillNumber)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.OriginatingChamber)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.OriginatingChamber)
-            @Html.ValidationMessageFor(model => model.OriginatingChamber)
-        </div>
+        <legend>NewLegislationView</legend>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.BillType)

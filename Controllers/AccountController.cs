@@ -35,7 +35,7 @@ namespace Politiq.Controllers
                         if (!memberManager.UsernameExist(newMember.Username))
                         {
                             memberManager.Add(newMember);
-                            FormsAuthentication.SetAuthCookie(newMember.FirstName, false);
+                            FormsAuthentication.SetAuthCookie(newMember.Username, false);
                             return RedirectToAction("Welcome", "Home");
                         }
                         else
