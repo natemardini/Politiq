@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Models\ObjectManager\MemberManager.cs" />
     <Compile Include="Models\DAL.cs" />
+    <Compile Include="Models\ObjectModel\Legislation.cs" />
     <Compile Include="Models\ObjectModel\Member.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

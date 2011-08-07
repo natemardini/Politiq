@@ -1,0 +1,50 @@
+﻿@model Politiq.Models.ObjectModel.Legislation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Legislation</legend>
+
+    <div class="display-label">BillNumber</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.BillNumber)
+    </div>
+
+    <div class="display-label">OriginatingChamber</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OriginatingChamber)
+    </div>
+
+    <div class="display-label">BillType</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.BillType)
+    </div>
+
+    <div class="display-label">LongTitle</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LongTitle)
+    </div>
+
+    <div class="display-label">ShortTile</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ShortTile)
+    </div>
+
+    <div class="display-label">Preamble</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Preamble)
+    </div>
+
+    <div class="display-label">Stage</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Stage)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.LegislationID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -19,3 +19,12 @@ C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq2\obj\Debug\Polit
 C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq2\bin\DataAnnotationsExtensions.ClientValidation.dll
 C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq2\bin\DataAnnotationsExtensions.dll
 C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq2\bin\WebActivator.dll
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq\bin\Politiq.dll
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq\bin\Politiq.pdb
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq\bin\DataAnnotationsExtensions.ClientValidation.dll
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq\bin\DataAnnotationsExtensions.dll
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq\bin\WebActivator.dll
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq\bin\EntityFramework.xml
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq\obj\Debug\Politiq.dll
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq\obj\Debug\Politiq.pdb

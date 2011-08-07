@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Politiq.Models.ObjectModel.Legislation>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            BillNumber
+        </th>
+        <th>
+            OriginatingChamber
+        </th>
+        <th>
+            BillType
+        </th>
+        <th>
+            LongTitle
+        </th>
+        <th>
+            ShortTile
+        </th>
+        <th>
+            Preamble
+        </th>
+        <th>
+            Stage
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OriginatingChamber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LongTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShortTile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Preamble)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stage)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.LegislationID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.LegislationID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.LegislationID })
+        </td>
+    </tr>
+}
+
+</table>
