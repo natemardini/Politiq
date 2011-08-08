@@ -6,14 +6,26 @@
 
 <p>@Html.ActionLink("Log out", "Logout", "Account")</p>
 
-@Html.BeginForm("Open", "Parliament", IsPost)
-   <input type="button" value="Open Parliament" /> 
-</form>
+<p>@Ajax.ActionLink("Open Parliament", "Open", "Parliament",
+                     new AjaxOptions
+                     {
+                         HttpMethod = "Post",
+                         Confirm = "Open a new session of Parliament?"
+                     }
+                     )</p>
 
-@Html.BeginForm("Prorogue", "Parliament", IsPost)
-   <input type="button" value="Prorogue Parliament" /> 
-</form>
+<p>@Ajax.ActionLink("Prorogue Parliament", "Prorogue", "Parliament",
+                    new AjaxOptions
+                    {
+                        HttpMethod = "Post",
+                        Confirm = "Prorogue the current session of Parliament?"
+                    }
+                    )</p>
 
-@Html.BeginForm("Dissolve", "Parliament", IsPost)
-   <input type="button" value="Dissolve Parliament" /> 
-</form>
+<p>@Ajax.ActionLink("Dissolve Parliament", "Dissolve", "Parliament",
+                    new AjaxOptions
+                    {
+                        HttpMethod = "Post",
+                        Confirm = "Dissolve Parliament and hold an election?"
+                    }
+                    )</p>

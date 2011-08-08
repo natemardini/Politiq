@@ -81,7 +81,7 @@ namespace Politiq.Controllers
         {
             var lastSession = db.LegislativeSessions.OrderByDescending(p => p.Ending).FirstOrDefault();
 
-            if (lastSession.Ending < DateTime.Now)
+            if (lastSession.Dissolved == true)
             {
                 return 0;
             }
