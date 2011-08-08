@@ -39,8 +39,10 @@ namespace Politiq.Controllers
         public ActionResult Create(int bill)
         {
             this.legislation = db.Legislations.Find(bill);
-            ViewBag.BillName = this.legislation.LongTitle.ToString();
+            ViewBag.BillName = this.legislation.LongTitle;
+            ViewBag.BillStyle = LegislationManager.GenerateStyle(this.legislation);
             ViewBag.ArticleNumber = (this.legislation.Provisions.Count + 1).ToString();
+            TempData["Bill"] = this.legislation.LegislationID;
             return View();
         } 
 
@@ -52,8 +54,9 @@ namespace Politiq.Controllers
         {
             if (ModelState.IsValid)
             {
+                int bill = int.Parse(TempData["Bill"].ToString());
                 LegislationManager billManager = new LegislationManager();
-                billManager.Include(provision, int.Parse(legislation.LegislationID.ToString()));
+                billManager.Include(provision, bill);
                 return RedirectToAction("Index");  
             }
 

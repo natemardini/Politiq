@@ -33,7 +33,7 @@ namespace Politiq
 
         protected void Application_Start()
         {
-            Database.SetInitializer<DAL>(new DropCreateDatabaseIfModelChanges<DAL>());
+            // Database.SetInitializer<DAL>(new DropCreateDatabaseIfModelChanges<DAL>());
             AreaRegistration.RegisterAllAreas();
             
             RegisterGlobalFilters(GlobalFilters.Filters);

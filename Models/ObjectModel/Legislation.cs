@@ -11,28 +11,28 @@ namespace Politiq.Models.ObjectModel
 
     public class Legislation
     {
-        public virtual int LegislationID { get; private set; }
+        public int LegislationID { get; set; }
 
        
-        public virtual int BillNumber { get; set; }
+        public int BillNumber { get; set; }
 
         [Required]
-        public virtual int OriginatingChamber { get; set; }
+        public int OriginatingChamber { get; set; }
 
         
-        public virtual int BillType { get; set; }
+        public int BillType { get; set; }
 
         [Required]
-        public virtual string LongTitle { get; set; }
+        public string LongTitle { get; set; }
 
-        public virtual string ShortTile { get; set; }
+        public string ShortTile { get; set; }
 
-        public virtual string Preamble { get; set; }
+        public string Preamble { get; set; }
 
         
         public virtual ICollection<Provision> Provisions { get; set; }
 
-        public virtual int Stage { get; set; }
+        public int Stage { get; set; }
 
         [Required]
         public virtual Member Sponsor { get; set; }
@@ -42,13 +42,13 @@ namespace Politiq.Models.ObjectModel
 
     public class Provision
     {
-        public virtual int ProvisionID { get; private set; }
+        public int ProvisionID { get; set; }
 
         [Required]
-        public virtual decimal Article { get; set; }
+        public decimal Article { get; set; }
 
         [Required]
-        public virtual string Text { get; set; }
+        public string Text { get; set; }
 
         public virtual OiC EnactingOrder { get; set; }
 
@@ -57,7 +57,7 @@ namespace Politiq.Models.ObjectModel
 
         public virtual Legislation InBill { get; set; }
 
-        public virtual DateTime Enactment { get; set; }
+        public DateTime Enactment { get; set; }  
     }
 
     public class OiC

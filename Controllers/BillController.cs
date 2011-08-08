@@ -51,11 +51,16 @@ namespace Politiq.Controllers
             if (ModelState.IsValid)
             {
                 LegislationManager billManager = new LegislationManager();
-                var savedLegislation = billManager.Save(legislation);
-
-                return RedirectToAction("Create", "Provision", new { bill = int.Parse(savedLegislation.LegislationID.ToString()) });  
+                int savedLegislation = billManager.Save(legislation);
+                if (savedLegislation == 0)
+                {
+                    ModelState.AddModelError("", "Parliament is not in session.");
+                }
+                else
+                {
+                    return RedirectToAction("Create", "Provision", new { bill = savedLegislation });
+                }   
             }
-
             return View(legislation);
         }
         

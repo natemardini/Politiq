@@ -5,6 +5,8 @@ using System.Web;
 using Politiq.Models.ObjectModel;
 using Politiq.Models;
 using System.Data.SqlTypes;
+using Politiq.Helpers;
+using System.Collections.ObjectModel;
 
 namespace Politiq.Models.ObjectManager
 {
@@ -33,28 +35,44 @@ namespace Politiq.Models.ObjectManager
             db.SaveChanges();
         }
 
-        public Legislation Save(NewLegislationView legislation)
+        public int Save(NewLegislationView legislation)
         {
-            Legislation newLegislation = new Legislation();
-            // Simple transfers
-            newLegislation.ShortTile = legislation.ShortTile;
-            newLegislation.LongTitle = legislation.LongTitle;
-            newLegislation.BillType = legislation.BillType;
-            newLegislation.OriginatingChamber = legislation.OriginatingChamber;
-            newLegislation.Preamble = legislation.Preamble;
+            var currentSession = db.LegislativeSessions.Where(p => p.Ending > DateTime.Now);
+            
+            if (currentSession.Any())
+            {
+                Legislation newLegislation = new Legislation();
 
-            // More complicated properties
-            newLegislation.Stage = 1;
-            this.NumberBill(newLegislation); // Provides bill number
-            newLegislation.Parliament = db.LegislativeSessions.First(p => p.Ending >= DateTime.Today);
-            newLegislation.Sponsor = db.Members.Single(m => m.Username == HttpContext.Current.User.Identity.Name);
+                // Simple transfers
+                newLegislation.ShortTile = legislation.ShortTile;
+                newLegislation.LongTitle = legislation.LongTitle;
+                newLegislation.BillType = legislation.BillType;
+                newLegislation.OriginatingChamber = legislation.OriginatingChamber;
+                newLegislation.Preamble = legislation.Preamble;
 
-            // And save
-            db.Legislations.Add(newLegislation);
-            db.SaveChanges();
+                // More complicated properties
+                newLegislation.Stage = 1;
+                this.NumberBill(newLegislation); // Provides bill number
+                newLegislation.Parliament = currentSession.First();
+                newLegislation.Sponsor = db.Members.Single(m => m.Username == HttpContext.Current.User.Identity.Name);
 
-            // return the saved legislation
-            return newLegislation;
+                // Initialize new list of provisions
+                newLegislation.Provisions = new Collection<Provision>();
+
+                // And save
+                db.Legislations.Add(newLegislation);
+                db.SaveChanges();
+
+                // Check for Short titles
+                this.IncludeShortTitle(newLegislation);
+
+                // return the saved legislation
+                return newLegislation.LegislationID;
+            }
+            else
+            {  
+                return 0;
+            }
         }
 
         public void Include(NewProvisionView article, int bill)
@@ -65,10 +83,11 @@ namespace Politiq.Models.ObjectManager
               Article = legislation.Provisions.Count + 1,
               Text = article.Text,
               Enactment = article.EnactingDate,
-              Proponent = db.Members.Single(m => m.Username == HttpContext.Current.User.Identity.ToString())
+              Proponent = db.Members.Single(m => m.Username == HttpContext.Current.User.Identity.ToString()),
+              InBill = legislation
             };
 
-            legislation.Provisions.Add(provision);
+            db.Provisions.Add(provision);
             db.SaveChanges();
         }
 
@@ -79,20 +98,37 @@ namespace Politiq.Models.ObjectManager
             case 1:
                     var currentPublicBills = db.Legislations.Where(l => l.BillType == 1 & l.Parliament.Ending >= DateTime.Today);
 
-                    legislation.BillNumber = currentPublicBills.Count() + 1;
+                    legislation.BillNumber = Numbers.CountOrNull(currentPublicBills) + 1;
                     break;
             case 2:
                     var currentPrivateBills = db.Legislations.Where(l => l.BillType == 2 & l.Parliament.Ending >= DateTime.Today);
 
-                    legislation.BillNumber = currentPrivateBills.Count() + 201;
+                    legislation.BillNumber = Numbers.CountOrNull(currentPrivateBills) + 201;
                     break;
             }
         }
 
-        public string GenerateStyle(Legislation legislation)
+        public static string GenerateStyle(Legislation legislation)
         {
             string style_letter = (legislation.OriginatingChamber == 2) ? "S" : "C";  
             return style_letter + "-" + legislation.BillNumber.ToString();
+        }
+
+        public void IncludeShortTitle(Legislation legislation)
+        {
+            if (legislation.ShortTile.Any() && legislation.ShortTile.ToString().Length >= 5)
+            {
+               
+                string shortTitle = "This Act may be cited as the <i>" + legislation.ShortTile.ToString() + "</i>.";
+                var provision = new Provision()
+                {
+                    Article = Numbers.CountOrNull(legislation.Provisions) + 1,
+                    Proponent = legislation.Sponsor,
+                    Text = shortTitle
+                };
+                legislation.Provisions.Add(provision);
+                db.SaveChanges();
+            }
         }
     }
 }
