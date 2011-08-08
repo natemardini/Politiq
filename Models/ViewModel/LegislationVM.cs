@@ -7,5 +7,6 @@ namespace Politiq.Models.ViewModel
 {
     public class LegislationVM
     {
+        // TODO: Replace with view models from Legislation.cs file
     }
 }

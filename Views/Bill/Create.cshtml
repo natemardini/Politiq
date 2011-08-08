@@ -18,7 +18,11 @@
             @Html.LabelFor(model => model.BillType)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.BillType)
+            <select name="BillType">
+                <option value="1">Public Bill</option>
+                <option value="2">Private Member's Bill</option>
+            </select>
+
             @Html.ValidationMessageFor(model => model.BillType)
         </div>
 

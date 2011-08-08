@@ -33,3 +33,6 @@ C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\bin\WebActivator.d
 C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\bin\Devtalk.EF.CodeFirst.dll
 C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\bin\EntityFramework.dll
 C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\bin\EntityFramework.xml
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq\bin\Devtalk.EF.CodeFirst.dll
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq\bin\EntityFramework.dll
+C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq\bin\EntityFramework.xml

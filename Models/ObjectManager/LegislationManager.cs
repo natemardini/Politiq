@@ -78,12 +78,12 @@ namespace Politiq.Models.ObjectManager
         public void Include(NewProvisionView article, int bill)
         {
             var legislation = db.Legislations.Find(bill); 
-            Provision provision = new Provision
+            var provision = new Provision
             {
               Article = legislation.Provisions.Count + 1,
               Text = article.Text,
-              Enactment = article.EnactingDate,
-              Proponent = db.Members.Single(m => m.Username == HttpContext.Current.User.Identity.ToString()),
+              Enactment = DateTime.Parse(article.EnactingDate),
+              Proponent = db.Members.SingleOrDefault(m => m.Username == HttpContext.Current.User.Identity.Name),
               InBill = legislation
             };
 

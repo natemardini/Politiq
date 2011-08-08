@@ -128,7 +128,7 @@ namespace Politiq.Models.ObjectModel
         [Required]
         public string Text { get; set; }
 
-        public DateTime EnactingDate { get; set; }
+        public string EnactingDate { get; set; }
 
     }
 }
