@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Data.Entity;
 using Politiq.Models;
+using Devtalk.EF.CodeFirst;
 
 namespace Politiq
 {
@@ -33,7 +34,7 @@ namespace Politiq
 
         protected void Application_Start()
         {
-            // Database.SetInitializer<DAL>(new DropCreateDatabaseIfModelChanges<DAL>());
+            // Database.SetInitializer<DAL>(new DontDropDbJustCreateTablesIfModelChanged<DAL>());
             AreaRegistration.RegisterAllAreas();
             
             RegisterGlobalFilters(GlobalFilters.Filters);

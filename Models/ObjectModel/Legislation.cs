@@ -45,7 +45,7 @@ namespace Politiq.Models.ObjectModel
         public int ProvisionID { get; set; }
 
         [Required]
-        public decimal Article { get; set; }
+        public int Article { get; set; }
 
         [Required]
         public string Text { get; set; }
@@ -95,6 +95,8 @@ namespace Politiq.Models.ObjectModel
         public DateTime Opening { get; set; }
 
         public DateTime Ending { get; set; }
+
+        public bool Dissolved { get; set; }
 
         public ICollection<Legislation> Bills { get; set; }
     }

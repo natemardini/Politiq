@@ -96,12 +96,12 @@ namespace Politiq.Models.ObjectManager
             switch (legislation.BillType)
             {
             case 1:
-                    var currentPublicBills = db.Legislations.Where(l => l.BillType == 1 & l.Parliament.Ending >= DateTime.Today);
+                    var currentPublicBills = db.Legislations.Where(l => l.BillType == 1 & l.Parliament.Ending > DateTime.Now);
 
                     legislation.BillNumber = Numbers.CountOrNull(currentPublicBills) + 1;
                     break;
             case 2:
-                    var currentPrivateBills = db.Legislations.Where(l => l.BillType == 2 & l.Parliament.Ending >= DateTime.Today);
+                    var currentPrivateBills = db.Legislations.Where(l => l.BillType == 2 & l.Parliament.Ending > DateTime.Now);
 
                     legislation.BillNumber = Numbers.CountOrNull(currentPrivateBills) + 201;
                     break;
@@ -116,7 +116,7 @@ namespace Politiq.Models.ObjectManager
 
         public void IncludeShortTitle(Legislation legislation)
         {
-            if (legislation.ShortTile.Any() && legislation.ShortTile.ToString().Length >= 5)
+            if (legislation.ShortTile.ToString().Length >= 5)
             {
                
                 string shortTitle = "This Act may be cited as the <i>" + legislation.ShortTile.ToString() + "</i>.";
@@ -124,7 +124,8 @@ namespace Politiq.Models.ObjectManager
                 {
                     Article = Numbers.CountOrNull(legislation.Provisions) + 1,
                     Proponent = legislation.Sponsor,
-                    Text = shortTitle
+                    Text = shortTitle,
+                    Enactment = DateTime.MaxValue
                 };
                 legislation.Provisions.Add(provision);
                 db.SaveChanges();

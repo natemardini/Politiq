@@ -57,7 +57,7 @@ namespace Politiq.Controllers
                 int bill = int.Parse(TempData["Bill"].ToString());
                 LegislationManager billManager = new LegislationManager();
                 billManager.Include(provision, bill);
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index", "Home");  
             }
 
             return View(provision);

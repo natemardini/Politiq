@@ -5,3 +5,15 @@
 <h2>Hi, <b>@Context.User.Identity.Name</b>! Welcome to my website!</h2>
 
 <p>@Html.ActionLink("Log out", "Logout", "Account")</p>
+
+@Html.BeginForm("Open", "Parliament", IsPost)
+   <input type="button" value="Open Parliament" /> 
+</form>
+
+@Html.BeginForm("Prorogue", "Parliament", IsPost)
+   <input type="button" value="Prorogue Parliament" /> 
+</form>
+
+@Html.BeginForm("Dissolve", "Parliament", IsPost)
+   <input type="button" value="Dissolve Parliament" /> 
+</form>

@@ -30,3 +30,6 @@ C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq\obj\Debug\Politi
 C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\bin\DataAnnotationsExtensions.ClientValidation.dll
 C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\bin\DataAnnotationsExtensions.dll
 C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\bin\WebActivator.dll
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\bin\Devtalk.EF.CodeFirst.dll
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\bin\EntityFramework.dll
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\Politiq\bin\EntityFramework.xml
