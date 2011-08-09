@@ -9,7 +9,7 @@ namespace Politiq.Models.ObjectModel
 {
     public class Member
     {
-        public int MemberID { get; private set; }
+        public int MemberID { get; set; }
         
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
@@ -30,6 +30,8 @@ namespace Politiq.Models.ObjectModel
         [StringLength(300)]
         [Display(Name = "Password")]
         public string Password { get; set; }
+
+        public virtual ICollection<Legislation> DraftedBills { get; set; }
     }
 
     public class NewMemberModel

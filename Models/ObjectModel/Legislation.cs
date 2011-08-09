@@ -34,7 +34,6 @@ namespace Politiq.Models.ObjectModel
 
         public int Stage { get; set; }
 
-        [Required]
         public virtual Member Sponsor { get; set; }
 
         public virtual LegislativeSession Parliament { get; set; }
@@ -50,14 +49,23 @@ namespace Politiq.Models.ObjectModel
         [Required]
         public string Text { get; set; }
 
-        public virtual OiC EnactingOrder { get; set; }
+        public virtual Enactment Enactment { get; set; }
 
         [Required]
         public virtual Member Proponent { get; set; }
 
         public virtual Legislation InBill { get; set; }
+    }
 
-        public DateTime Enactment { get; set; }  
+    public class Enactment
+    {
+        public int EnactmentID { get; set; }
+
+        public int EnactmentType { get; set; }
+
+        public virtual OiC EnactingOrder { get; set; }
+
+        public DateTime EnactingDate { get; set; }
     }
 
     public class OiC
@@ -69,7 +77,7 @@ namespace Politiq.Models.ObjectModel
         [Required]
         public string Text { get; set; }
 
-        public ICollection<Provision> EnactedProvisions { get; set; }
+        public virtual ICollection<Enactment> ArticleEnactments { get; set; }
 
         [Required]
         public Member Enactor { get; set; }
@@ -131,4 +139,6 @@ namespace Politiq.Models.ObjectModel
         public string EnactingDate { get; set; }
 
     }
+
+
 }

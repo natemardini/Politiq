@@ -82,7 +82,11 @@ namespace Politiq.Models.ObjectManager
             {
               Article = legislation.Provisions.Count + 1,
               Text = article.Text,
-              Enactment = DateTime.Parse(article.EnactingDate),
+              Enactment = new Enactment { 
+                EnactmentType = 1,
+                EnactingOrder = null,
+                EnactingDate = DateTime.Parse(article.EnactingDate),
+              },
               Proponent = db.Members.SingleOrDefault(m => m.Username == HttpContext.Current.User.Identity.Name),
               InBill = legislation
             };
@@ -125,7 +129,12 @@ namespace Politiq.Models.ObjectManager
                     Article = Numbers.CountOrNull(legislation.Provisions) + 1,
                     Proponent = legislation.Sponsor,
                     Text = shortTitle,
-                    Enactment = DateTime.MaxValue
+                    Enactment = new Enactment
+                    {
+                        EnactingOrder = null,
+                        EnactmentType = 1,
+                        EnactingDate = DateTime.MaxValue
+                    }
                 };
                 legislation.Provisions.Add(provision);
                 db.SaveChanges();
