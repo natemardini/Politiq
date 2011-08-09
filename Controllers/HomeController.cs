@@ -23,5 +23,10 @@ namespace Politiq.Controllers
             return View();
         }
 
+        public string Regex()
+        {
+            string test = "[Howdy #how# are you?] [I'm good thank you]";
+            return Politiq.Helpers.Formatting.ConvertScribToHtml(test);
+        }
     }
 }

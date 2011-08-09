@@ -28,7 +28,7 @@ namespace Politiq.Controllers
 
         public ViewResult Details(int id)
         {
-            Legislation legislation = db.Legislations.Include(p => p.Provisions).Single(l => l.LegislationID == id); 
+            Legislation legislation = db.Legislations.Find(id); 
             ViewBag.Style = LegislationManager.GenerateStyle(legislation);
             return View(legislation);
         }
@@ -45,6 +45,7 @@ namespace Politiq.Controllers
         // POST: /Bill/Create
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(NewLegislationView legislation)
         {
             legislation.OriginatingChamber = 1;    // House of Commons by default, hard-coded. Change if Senate included.

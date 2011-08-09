@@ -53,6 +53,38 @@ namespace Politiq.Helpers
 
             return plural;
         }
+
+        public static string ConvertScribToHtml(string str)
+        {
+            Regex exp;
+            exp = new Regex(@"#(.+?)#");
+            str = exp.Replace(str, "<strong>$1</strong>");
+
+            exp = new Regex(@"\*(.+?)\*");
+            str = exp.Replace(str, "<em>$1</em>");
+
+            exp = new Regex(@"_(.+?)_");
+            str = exp.Replace(str, "<u>$1</u>");
+
+            exp = new Regex(@"\^(.+?)\^");
+            str = exp.Replace(str, "<del>$1</del>");
+
+            exp = new Regex(@"\|(.+?)\|");
+            str = exp.Replace(str, "<blockquote>$1</blockquote>");
+            
+            char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789".ToCharArray();
+            int i = 0;
+            exp = new Regex(@"\[(.+?)\]");
+            str = exp.Replace(str, delegate(Match m){
+                string result = "<p class='para'>(" + chars.GetValue(i).ToString() + ") " + m.Groups[1].Value + "</p>";
+                i++;
+                return result;
+                });
+
+            return str;
+        }
     }
+
+
 }
 
