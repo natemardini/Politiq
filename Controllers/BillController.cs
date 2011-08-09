@@ -28,7 +28,8 @@ namespace Politiq.Controllers
 
         public ViewResult Details(int id)
         {
-            Legislation legislation = db.Legislations.Find(id);
+            Legislation legislation = db.Legislations.Include(p => p.Provisions).Single(l => l.LegislationID == id); 
+            ViewBag.Style = LegislationManager.GenerateStyle(legislation);
             return View(legislation);
         }
 

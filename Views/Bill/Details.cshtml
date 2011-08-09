@@ -1,50 +1,25 @@
 ﻿@model Politiq.Models.ObjectModel.Legislation
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Bill " + ViewBag.Style;
 }
 
-<h2>Details</h2>
+<h2>Bill @ViewBag.Style</h2>
 
-<fieldset>
-    <legend>Legislation</legend>
+    <p>
+       <strong> @Html.DisplayFor(model => model.LongTitle)   </strong>
+    </p>
 
-    <div class="display-label">BillNumber</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.BillNumber)
-    </div>
+    <p>@Html.DisplayFor(model => model.Preamble)</p>
 
-    <div class="display-label">OriginatingChamber</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.OriginatingChamber)
-    </div>
+    <p><i>NOW, THEREFORE, Her Majesty, by and with the advice and consent of the Senate and House of Commons of Canada, enacts as follows:</i></p>
 
-    <div class="display-label">BillType</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.BillType)
-    </div>
+    @foreach (var p in Model.Provisions) { 
+       <p>@p.Article.ToString(). @Html.Raw(@p.Text)</p> 
+    }
 
-    <div class="display-label">LongTitle</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.LongTitle)
-    </div>
-
-    <div class="display-label">ShortTile</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ShortTile)
-    </div>
-
-    <div class="display-label">Preamble</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Preamble)
-    </div>
-
-    <div class="display-label">Stage</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Stage)
-    </div>
-</fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.LegislationID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LegislationID }) |
     @Html.ActionLink("Back to List", "Index")
+    
 </p>
