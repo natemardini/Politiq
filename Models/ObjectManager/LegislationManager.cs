@@ -78,16 +78,16 @@ namespace Politiq.Models.ObjectManager
                     legislation.Provisions.Add(provision);
                     db.SaveChanges();
 
-                    return 0;
+                    return provision.ProvisionID;
                 }
                 catch (Exception)
                 {     
-                    return 1;
+                    return 0;
                 }
             }
             else
             {
-                return 2;
+                return 0;
             } 
         }
 
