@@ -14,5 +14,16 @@ namespace Politiq.Models
         public DbSet<Provision> Provisions { get; set; }
         public DbSet<OiC> OiCs { get; set; }
         public DbSet<LegislativeSession> LegislativeSessions { get; set; }
+        public DbSet<Commons> Commons { get; set; }
+        public DbSet<Senate> Senate { get; set; }
+        public DbSet<Party> Parties { get; set; }
+        public DbSet<Update> Updates { get; set; }
+    }
+
+    public class Update
+    {
+        public int UpdateID { get; set; }
+        public DateTime UpdateTime { get; set; }
+        public string Response { get; set; }
     }
 }

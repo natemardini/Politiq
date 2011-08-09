@@ -33,6 +33,28 @@ namespace Politiq.Models.ObjectModel
         public string Password { get; set; }
 
         public virtual ICollection<Legislation> DraftedBills { get; set; }
+
+        public virtual Party Party { get; set; }
+
+        public virtual ICollection<Role> Roles { get; set; }
+
+        public DateTime LastLogin { get; set; }
+    }
+
+    public class Role
+    {
+        public int RoleID { get; set; }
+
+        public int RoleLevel { get; set; }        // 1: MP, 2: Critic, 3: Whip, 4: House Leader, 5: Leader, 6: Minister, 7: PM, 8: Editor, 9 Speaker, 10: GG. 
+
+        public string ShortTitle { get; set; }
+
+        public string LongName { get; set; }
+
+        public IList<int> AccessClearance { get; set; }
+
+        public virtual ICollection<Member> WithMembers { get; set; }
+
     }
 
     public class NewMemberModel

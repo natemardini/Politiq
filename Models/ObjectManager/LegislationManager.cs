@@ -28,12 +28,21 @@ namespace Politiq.Models.ObjectManager
                 newLegislation.BillType = legislation.BillType;
                 newLegislation.OriginatingChamber = legislation.OriginatingChamber;
                 newLegislation.Preamble = legislation.Preamble;
-
+           
                 // More complicated properties
-                newLegislation.Stage = 1;
                 this.NumberBill(newLegislation); // Provides bill number
                 newLegislation.Parliament = currentSession.First();
                 newLegislation.Sponsor = db.Members.Single(m => m.Username == HttpContext.Current.User.Identity.Name);
+
+                // Initialize its stage
+                newLegislation.Stage = new Stage
+                {
+                    Reading = 0,
+                    VotesFor = null,
+                    VotesAgainst = null,
+                    Abstentions = null,
+                    LastMovement = DateTime.Now
+                };
 
                 // Initialize new list of provisions
                 newLegislation.Provisions = new Collection<Provision>();

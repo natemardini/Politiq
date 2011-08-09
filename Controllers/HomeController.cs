@@ -25,8 +25,8 @@ namespace Politiq.Controllers
 
         public string Regex()
         {
-            string test = "[Howdy #how# are you?] [I'm good thank you]";
-            return Politiq.Helpers.Formatting.ConvertScribToHtml(test);
+            int yeas = (int)decimal.Truncate(((10 / 13) * 58));
+            return yeas.ToString();
         }
     }
 }

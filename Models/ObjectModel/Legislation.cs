@@ -32,11 +32,14 @@ namespace Politiq.Models.ObjectModel
         
         public virtual ICollection<Provision> Provisions { get; set; }
 
-        public int Stage { get; set; }
+        public Stage Stage { get; set; }
 
         public virtual Member Sponsor { get; set; }
 
         public virtual LegislativeSession Parliament { get; set; }
+
+        public virtual ICollection<VoteHistory> Hansard { get; set; }
+
     }
 
     public class Provision
@@ -88,24 +91,27 @@ namespace Politiq.Models.ObjectModel
 
     }
 
-    public class LegislativeSession
+    public class Stage
     {
-        public int LegislativeSessionID { get; private set; }
+        public int StageID { get; set; }
+        public int Reading { get; set; }
+        public virtual ICollection<Member> VotesFor { get; set; }
+        public virtual ICollection<Member> VotesAgainst { get; set; }
+        public virtual ICollection<Member> Abstentions { get; set; }
+        public DateTime LastMovement { get; set; }
+    }
 
-        [Required]
-        public int Legislature { get; set; }
-
-        [Required]
-        public int Session { get; set; }
-
-        [Required]
-        public DateTime Opening { get; set; }
-
-        public DateTime Ending { get; set; }
-
-        public bool Dissolved { get; set; }
-
-        public ICollection<Legislation> Bills { get; set; }
+    public class VoteHistory
+    {
+        public int VoteHistoryID { get; set; }
+        public virtual Legislation ForBill { get; set; }
+        public virtual Stage AtStage { get; set; }
+        public virtual ICollection<Member> MPs_For { get; set; }
+        public virtual ICollection<Member> MPs_Against { get; set; }
+        public virtual ICollection<Member> MPs_Abstained { get; set; }
+        public int Yeas { get; set; }
+        public int Nays { get; set; }
+        public int Abstains { get; set; }
     }
 
     // Model Views
