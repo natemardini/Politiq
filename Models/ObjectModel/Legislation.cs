@@ -51,7 +51,6 @@ namespace Politiq.Models.ObjectModel
 
         public virtual Enactment Enactment { get; set; }
 
-        [Required]
         public virtual Member Proponent { get; set; }
 
         public virtual Legislation InBill { get; set; }

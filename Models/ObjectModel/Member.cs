@@ -9,6 +9,7 @@ namespace Politiq.Models.ObjectModel
 {
     public class Member
     {
+        [Key]
         public int MemberID { get; set; }
         
         [Display(Name = "First Name")]

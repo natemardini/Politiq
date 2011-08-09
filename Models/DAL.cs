@@ -14,11 +14,5 @@ namespace Politiq.Models
         public DbSet<Provision> Provisions { get; set; }
         public DbSet<OiC> OiCs { get; set; }
         public DbSet<LegislativeSession> LegislativeSessions { get; set; }
-        //public DbSet<Enactment> Enactments { get; set; }
-
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Provision>().HasRequired(p => p.Enactment).WithRequiredPrincipal();
-        //}
     }
 }

@@ -14,27 +14,6 @@ namespace Politiq.Models.ObjectManager
     {
         DAL db = new DAL();
 
-        public void Add(NewLegislationView legislation)
-        {
-            Legislation newLegislation = new Legislation();
-            // Simple transfers
-            newLegislation.ShortTile = legislation.ShortTile;
-            newLegislation.LongTitle = legislation.LongTitle;
-            newLegislation.BillType = legislation.BillType;
-            newLegislation.OriginatingChamber = legislation.OriginatingChamber;
-            newLegislation.Preamble = legislation.Preamble;
-            
-            // More complicated properties
-            newLegislation.Stage = 1;
-            this.NumberBill(newLegislation); // Provides bill number
-            newLegislation.Parliament = db.LegislativeSessions.First(p => p.Ending >= DateTime.Today);
-            newLegislation.Sponsor = db.Members.Single(m => m.Username == HttpContext.Current.User.Identity.Name);
-
-            // And save
-            db.Legislations.Add(newLegislation);
-            db.SaveChanges();
-        }
-
         public int Save(NewLegislationView legislation)
         {
             var currentSession = db.LegislativeSessions.Where(p => p.Ending > DateTime.Now);
@@ -75,24 +54,41 @@ namespace Politiq.Models.ObjectManager
             }
         }
 
-        public void Include(NewProvisionView article, int bill)
+        public int Include(NewProvisionView article, int bill)
         {
-            var legislation = db.Legislations.Find(bill); 
-            var provision = new Provision
-            {
-              Article = legislation.Provisions.Count + 1,
-              Text = article.Text,
-              Enactment = new Enactment { 
-                EnactmentType = 1,
-                EnactingOrder = null,
-                EnactingDate = DateTime.Parse(article.EnactingDate),
-              },
-              Proponent = db.Members.SingleOrDefault(m => m.Username == HttpContext.Current.User.Identity.Name),
-              InBill = legislation
-            };
+            var legislation = db.Legislations.Find(bill);
 
-            db.Provisions.Add(provision);
-            db.SaveChanges();
+            if (legislation != null)
+            {
+                try
+                {
+                    var provision = new Provision
+                    {
+                        Article = Numbers.CountOrNull(legislation.Provisions) + 1,
+                        Text = article.Text,
+                        Enactment = new Enactment
+                        {
+                            EnactmentType = 1,
+                            EnactingOrder = null,
+                            EnactingDate = DateTime.Parse(article.EnactingDate)
+                        },
+                        Proponent = db.Members.SingleOrDefault(m => m.Username == HttpContext.Current.User.Identity.Name)
+                    };
+
+                    legislation.Provisions.Add(provision);
+                    db.SaveChanges();
+
+                    return 0;
+                }
+                catch (Exception)
+                {     
+                    return 1;
+                }
+            }
+            else
+            {
+                return 2;
+            } 
         }
 
         public void NumberBill(Legislation legislation)
@@ -121,10 +117,9 @@ namespace Politiq.Models.ObjectManager
         public void IncludeShortTitle(Legislation legislation)
         {
             if (legislation.ShortTile.ToString().Length >= 5)
-            {
-               
+            {       
                 string shortTitle = "This Act may be cited as the <i>" + legislation.ShortTile.ToString() + "</i>.";
-                var provision = new Provision()
+                var provision = new Provision
                 {
                     Article = Numbers.CountOrNull(legislation.Provisions) + 1,
                     Proponent = legislation.Sponsor,
