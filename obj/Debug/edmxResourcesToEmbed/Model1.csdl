@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="db3705Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Commons" EntityType="db3705Model.Common" />
+    <EntitySet Name="Legislations" EntityType="db3705Model.Legislation" />
+    <EntitySet Name="LegislativeSessions" EntityType="db3705Model.LegislativeSession" />
+    <EntitySet Name="Members" EntityType="db3705Model.Member" />
+    <EntitySet Name="Parties" EntityType="db3705Model.Party" />
+    <EntitySet Name="Stages" EntityType="db3705Model.Stage" />
+    <EntitySet Name="sysdiagrams" EntityType="db3705Model.sysdiagram" />
+    <EntitySet Name="VoteHistories" EntityType="db3705Model.VoteHistory" />
+    <AssociationSet Name="Commons_Government" Association="db3705Model.Commons_Government">
+      <End Role="Commons" EntitySet="Commons" />
+      <End Role="Parties" EntitySet="Parties" />
+    </AssociationSet>
+    <AssociationSet Name="Commons_OfficialOpposition" Association="db3705Model.Commons_OfficialOpposition">
+      <End Role="Commons" EntitySet="Commons" />
+      <End Role="Parties" EntitySet="Parties" />
+    </AssociationSet>
+    <AssociationSet Name="Commons_Opposition" Association="db3705Model.Commons_Opposition">
+      <End Role="Commons" EntitySet="Commons" />
+      <End Role="Parties" EntitySet="Parties" />
+    </AssociationSet>
+    <AssociationSet Name="Legislation_Sponsor" Association="db3705Model.Legislation_Sponsor">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="Legislations" EntitySet="Legislations" />
+    </AssociationSet>
+    <AssociationSet Name="Legislation_Stage" Association="db3705Model.Legislation_Stage">
+      <End Role="Stages" EntitySet="Stages" />
+      <End Role="Legislations" EntitySet="Legislations" />
+    </AssociationSet>
+    <AssociationSet Name="LegislativeSession_Bills" Association="db3705Model.LegislativeSession_Bills">
+      <End Role="LegislativeSessions" EntitySet="LegislativeSessions" />
+      <End Role="Legislations" EntitySet="Legislations" />
+    </AssociationSet>
+    <AssociationSet Name="VoteHistory_ForBill" Association="db3705Model.VoteHistory_ForBill">
+      <End Role="Legislations" EntitySet="Legislations" />
+      <End Role="VoteHistories" EntitySet="VoteHistories" />
+    </AssociationSet>
+    <AssociationSet Name="Party_Members" Association="db3705Model.Party_Members">
+      <End Role="Parties" EntitySet="Parties" />
+      <End Role="Members" EntitySet="Members" />
+    </AssociationSet>
+    <AssociationSet Name="Stage_Abstentions" Association="db3705Model.Stage_Abstentions">
+      <End Role="Stages" EntitySet="Stages" />
+      <End Role="Members" EntitySet="Members" />
+    </AssociationSet>
+    <AssociationSet Name="Stage_VotesAgainst" Association="db3705Model.Stage_VotesAgainst">
+      <End Role="Stages" EntitySet="Stages" />
+      <End Role="Members" EntitySet="Members" />
+    </AssociationSet>
+    <AssociationSet Name="Stage_VotesFor" Association="db3705Model.Stage_VotesFor">
+      <End Role="Stages" EntitySet="Stages" />
+      <End Role="Members" EntitySet="Members" />
+    </AssociationSet>
+    <AssociationSet Name="VoteHistory_MPs_Abstained" Association="db3705Model.VoteHistory_MPs_Abstained">
+      <End Role="VoteHistories" EntitySet="VoteHistories" />
+      <End Role="Members" EntitySet="Members" />
+    </AssociationSet>
+    <AssociationSet Name="VoteHistory_MPs_Against" Association="db3705Model.VoteHistory_MPs_Against">
+      <End Role="VoteHistories" EntitySet="VoteHistories" />
+      <End Role="Members" EntitySet="Members" />
+    </AssociationSet>
+    <AssociationSet Name="VoteHistory_MPs_For" Association="db3705Model.VoteHistory_MPs_For">
+      <End Role="VoteHistories" EntitySet="VoteHistories" />
+      <End Role="Members" EntitySet="Members" />
+    </AssociationSet>
+    <AssociationSet Name="VoteHistory_AtStage" Association="db3705Model.VoteHistory_AtStage">
+      <End Role="Stages" EntitySet="Stages" />
+      <End Role="VoteHistories" EntitySet="VoteHistories" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Common">
+    <Key>
+      <PropertyRef Name="CommonsID" />
+    </Key>
+    <Property Name="CommonsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SeatCount" Type="Int32" Nullable="false" />
+    <Property Name="Opened" Type="DateTime" Nullable="false" />
+    <Property Name="Ended" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Parties" Relationship="db3705Model.Commons_Government" FromRole="Commons" ToRole="Parties" />
+    <NavigationProperty Name="Parties1" Relationship="db3705Model.Commons_OfficialOpposition" FromRole="Commons" ToRole="Parties" />
+    <NavigationProperty Name="Parties2" Relationship="db3705Model.Commons_Opposition" FromRole="Commons" ToRole="Parties" />
+  </EntityType>
+  <EntityType Name="Legislation">
+    <Key>
+      <PropertyRef Name="LegislationID" />
+    </Key>
+    <Property Name="LegislationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BillNumber" Type="Int32" Nullable="false" />
+    <Property Name="OriginatingChamber" Type="Int32" Nullable="false" />
+    <Property Name="BillType" Type="Int32" Nullable="false" />
+    <Property Name="LongTitle" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ShortTile" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Preamble" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Confidence" Type="Boolean" Nullable="false" />
+    <Property Name="Stage_StageID" Type="Int32" />
+    <Property Name="Sponsor_MemberID" Type="Int32" />
+    <Property Name="Parliament_LegislativeSessionID" Type="Int32" />
+    <NavigationProperty Name="Member" Relationship="db3705Model.Legislation_Sponsor" FromRole="Legislations" ToRole="Members" />
+    <NavigationProperty Name="Stage" Relationship="db3705Model.Legislation_Stage" FromRole="Legislations" ToRole="Stages" />
+    <NavigationProperty Name="LegislativeSession" Relationship="db3705Model.LegislativeSession_Bills" FromRole="Legislations" ToRole="LegislativeSessions" />
+    <NavigationProperty Name="VoteHistories" Relationship="db3705Model.VoteHistory_ForBill" FromRole="Legislations" ToRole="VoteHistories" />
+  </EntityType>
+  <EntityType Name="LegislativeSession">
+    <Key>
+      <PropertyRef Name="LegislativeSessionID" />
+    </Key>
+    <Property Name="LegislativeSessionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Legislature" Type="Int32" Nullable="false" />
+    <Property Name="Session" Type="Int32" Nullable="false" />
+    <Property Name="Opening" Type="DateTime" Nullable="false" />
+    <Property Name="Ending" Type="DateTime" Nullable="false" />
+    <Property Name="Dissolved" Type="Boolean" Nullable="false" />
+    <Property Name="BillRez" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Legislations" Relationship="db3705Model.LegislativeSession_Bills" FromRole="LegislativeSessions" ToRole="Legislations" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="MemberID" />
+    </Key>
+    <Property Name="MemberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="LastName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="300" Unicode="true" FixedLength="false" />
+    <Property Name="LastLogin" Type="DateTime" Nullable="false" />
+    <Property Name="Stage_StageID" Type="Int32" />
+    <Property Name="Stage_StageID1" Type="Int32" />
+    <Property Name="Stage_StageID2" Type="Int32" />
+    <Property Name="VoteHistory_VoteHistoryID" Type="Int32" />
+    <Property Name="VoteHistory_VoteHistoryID1" Type="Int32" />
+    <Property Name="VoteHistory_VoteHistoryID2" Type="Int32" />
+    <Property Name="Party_PartyID" Type="Int32" />
+    <NavigationProperty Name="Legislations" Relationship="db3705Model.Legislation_Sponsor" FromRole="Members" ToRole="Legislations" />
+    <NavigationProperty Name="Party" Relationship="db3705Model.Party_Members" FromRole="Members" ToRole="Parties" />
+    <NavigationProperty Name="Stage" Relationship="db3705Model.Stage_Abstentions" FromRole="Members" ToRole="Stages" />
+    <NavigationProperty Name="Stage1" Relationship="db3705Model.Stage_VotesAgainst" FromRole="Members" ToRole="Stages" />
+    <NavigationProperty Name="Stage2" Relationship="db3705Model.Stage_VotesFor" FromRole="Members" ToRole="Stages" />
+    <NavigationProperty Name="VoteHistory" Relationship="db3705Model.VoteHistory_MPs_Abstained" FromRole="Members" ToRole="VoteHistories" />
+    <NavigationProperty Name="VoteHistory1" Relationship="db3705Model.VoteHistory_MPs_Against" FromRole="Members" ToRole="VoteHistories" />
+    <NavigationProperty Name="VoteHistory2" Relationship="db3705Model.VoteHistory_MPs_For" FromRole="Members" ToRole="VoteHistories" />
+  </EntityType>
+  <EntityType Name="Party">
+    <Key>
+      <PropertyRef Name="PartyID" />
+    </Key>
+    <Property Name="PartyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ShortName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Abbrev" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Seats" Type="Int32" Nullable="false" />
+    <Property Name="Commons_CommonsID" Type="Int32" />
+    <Property Name="Commons_CommonsID1" Type="Int32" />
+    <Property Name="Commons_CommonsID2" Type="Int32" />
+    <NavigationProperty Name="Common" Relationship="db3705Model.Commons_Government" FromRole="Parties" ToRole="Commons" />
+    <NavigationProperty Name="Common1" Relationship="db3705Model.Commons_OfficialOpposition" FromRole="Parties" ToRole="Commons" />
+    <NavigationProperty Name="Common2" Relationship="db3705Model.Commons_Opposition" FromRole="Parties" ToRole="Commons" />
+    <NavigationProperty Name="Members" Relationship="db3705Model.Party_Members" FromRole="Parties" ToRole="Members" />
+  </EntityType>
+  <EntityType Name="Stage">
+    <Key>
+      <PropertyRef Name="StageID" />
+    </Key>
+    <Property Name="StageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Reading" Type="Int32" Nullable="false" />
+    <Property Name="LastMovement" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Legislations" Relationship="db3705Model.Legislation_Stage" FromRole="Stages" ToRole="Legislations" />
+    <NavigationProperty Name="Members" Relationship="db3705Model.Stage_Abstentions" FromRole="Stages" ToRole="Members" />
+    <NavigationProperty Name="Members1" Relationship="db3705Model.Stage_VotesAgainst" FromRole="Stages" ToRole="Members" />
+    <NavigationProperty Name="Members2" Relationship="db3705Model.Stage_VotesFor" FromRole="Stages" ToRole="Members" />
+    <NavigationProperty Name="VoteHistories" Relationship="db3705Model.VoteHistory_AtStage" FromRole="Stages" ToRole="VoteHistories" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="VoteHistory">
+    <Key>
+      <PropertyRef Name="VoteHistoryID" />
+    </Key>
+    <Property Name="VoteHistoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Yeas" Type="Int32" Nullable="false" />
+    <Property Name="Nays" Type="Int32" Nullable="false" />
+    <Property Name="Abstains" Type="Int32" Nullable="false" />
+    <Property Name="ForBill_LegislationID" Type="Int32" />
+    <Property Name="AtStage_StageID" Type="Int32" />
+    <NavigationProperty Name="Legislation" Relationship="db3705Model.VoteHistory_ForBill" FromRole="VoteHistories" ToRole="Legislations" />
+    <NavigationProperty Name="Members" Relationship="db3705Model.VoteHistory_MPs_Abstained" FromRole="VoteHistories" ToRole="Members" />
+    <NavigationProperty Name="Members1" Relationship="db3705Model.VoteHistory_MPs_Against" FromRole="VoteHistories" ToRole="Members" />
+    <NavigationProperty Name="Members2" Relationship="db3705Model.VoteHistory_MPs_For" FromRole="VoteHistories" ToRole="Members" />
+    <NavigationProperty Name="Stage" Relationship="db3705Model.VoteHistory_AtStage" FromRole="VoteHistories" ToRole="Stages" />
+  </EntityType>
+  <Association Name="Commons_Government">
+    <End Role="Commons" Type="db3705Model.Common" Multiplicity="0..1" />
+    <End Role="Parties" Type="db3705Model.Party" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commons">
+        <PropertyRef Name="CommonsID" />
+      </Principal>
+      <Dependent Role="Parties">
+        <PropertyRef Name="Commons_CommonsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Commons_OfficialOpposition">
+    <End Role="Commons" Type="db3705Model.Common" Multiplicity="0..1" />
+    <End Role="Parties" Type="db3705Model.Party" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commons">
+        <PropertyRef Name="CommonsID" />
+      </Principal>
+      <Dependent Role="Parties">
+        <PropertyRef Name="Commons_CommonsID1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Commons_Opposition">
+    <End Role="Commons" Type="db3705Model.Common" Multiplicity="0..1" />
+    <End Role="Parties" Type="db3705Model.Party" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commons">
+        <PropertyRef Name="CommonsID" />
+      </Principal>
+      <Dependent Role="Parties">
+        <PropertyRef Name="Commons_CommonsID2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Legislation_Sponsor">
+    <End Role="Members" Type="db3705Model.Member" Multiplicity="0..1" />
+    <End Role="Legislations" Type="db3705Model.Legislation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Legislations">
+        <PropertyRef Name="Sponsor_MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Legislation_Stage">
+    <End Role="Stages" Type="db3705Model.Stage" Multiplicity="0..1" />
+    <End Role="Legislations" Type="db3705Model.Legislation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stages">
+        <PropertyRef Name="StageID" />
+      </Principal>
+      <Dependent Role="Legislations">
+        <PropertyRef Name="Stage_StageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LegislativeSession_Bills">
+    <End Role="LegislativeSessions" Type="db3705Model.LegislativeSession" Multiplicity="0..1" />
+    <End Role="Legislations" Type="db3705Model.Legislation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LegislativeSessions">
+        <PropertyRef Name="LegislativeSessionID" />
+      </Principal>
+      <Dependent Role="Legislations">
+        <PropertyRef Name="Parliament_LegislativeSessionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VoteHistory_ForBill">
+    <End Role="Legislations" Type="db3705Model.Legislation" Multiplicity="0..1" />
+    <End Role="VoteHistories" Type="db3705Model.VoteHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Legislations">
+        <PropertyRef Name="LegislationID" />
+      </Principal>
+      <Dependent Role="VoteHistories">
+        <PropertyRef Name="ForBill_LegislationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Party_Members">
+    <End Role="Parties" Type="db3705Model.Party" Multiplicity="0..1" />
+    <End Role="Members" Type="db3705Model.Member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Parties">
+        <PropertyRef Name="PartyID" />
+      </Principal>
+      <Dependent Role="Members">
+        <PropertyRef Name="Party_PartyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Stage_Abstentions">
+    <End Role="Stages" Type="db3705Model.Stage" Multiplicity="0..1" />
+    <End Role="Members" Type="db3705Model.Member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stages">
+        <PropertyRef Name="StageID" />
+      </Principal>
+      <Dependent Role="Members">
+        <PropertyRef Name="Stage_StageID2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Stage_VotesAgainst">
+    <End Role="Stages" Type="db3705Model.Stage" Multiplicity="0..1" />
+    <End Role="Members" Type="db3705Model.Member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stages">
+        <PropertyRef Name="StageID" />
+      </Principal>
+      <Dependent Role="Members">
+        <PropertyRef Name="Stage_StageID1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Stage_VotesFor">
+    <End Role="Stages" Type="db3705Model.Stage" Multiplicity="0..1" />
+    <End Role="Members" Type="db3705Model.Member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stages">
+        <PropertyRef Name="StageID" />
+      </Principal>
+      <Dependent Role="Members">
+        <PropertyRef Name="Stage_StageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VoteHistory_MPs_Abstained">
+    <End Role="VoteHistories" Type="db3705Model.VoteHistory" Multiplicity="0..1" />
+    <End Role="Members" Type="db3705Model.Member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VoteHistories">
+        <PropertyRef Name="VoteHistoryID" />
+      </Principal>
+      <Dependent Role="Members">
+        <PropertyRef Name="VoteHistory_VoteHistoryID2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VoteHistory_MPs_Against">
+    <End Role="VoteHistories" Type="db3705Model.VoteHistory" Multiplicity="0..1" />
+    <End Role="Members" Type="db3705Model.Member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VoteHistories">
+        <PropertyRef Name="VoteHistoryID" />
+      </Principal>
+      <Dependent Role="Members">
+        <PropertyRef Name="VoteHistory_VoteHistoryID1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VoteHistory_MPs_For">
+    <End Role="VoteHistories" Type="db3705Model.VoteHistory" Multiplicity="0..1" />
+    <End Role="Members" Type="db3705Model.Member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VoteHistories">
+        <PropertyRef Name="VoteHistoryID" />
+      </Principal>
+      <Dependent Role="Members">
+        <PropertyRef Name="VoteHistory_VoteHistoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VoteHistory_AtStage">
+    <End Role="Stages" Type="db3705Model.Stage" Multiplicity="0..1" />
+    <End Role="VoteHistories" Type="db3705Model.VoteHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stages">
+        <PropertyRef Name="StageID" />
+      </Principal>
+      <Dependent Role="VoteHistories">
+        <PropertyRef Name="AtStage_StageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

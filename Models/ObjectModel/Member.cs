@@ -9,25 +9,20 @@ namespace Politiq.Models.ObjectModel
 {
     public class Member
     {
-        [Key]
         public int MemberID { get; set; }
         
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
-        
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Required]
         [Display(Name = "Username")]
         public string Username { get; set; }
 
-        [Required]
         [Display(Name = "Email Address")]
         public string Email { get; set; }
 
-        [Required]
         [StringLength(300)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -38,7 +33,9 @@ namespace Politiq.Models.ObjectModel
 
         public virtual ICollection<Role> Roles { get; set; }
 
-        public DateTime LastLogin { get; set; }
+        public DateTime LastActivity { get; set; }
+
+        public virtual ICollection<Ballot> VoteRecord { get; set; }
     }
 
     public class Role
@@ -57,68 +54,18 @@ namespace Politiq.Models.ObjectModel
 
     }
 
-    public class NewMemberModel
+    public class Party
     {
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
+        public int PartyID { get; set; }
 
+        public string ShortName { get; set; }
 
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
+        public string Abbrev { get; set; }
 
-        [Required]
-        [Display(Name = "Username")]
-        public string Username { get; set; }
+        public string Name { get; set; }
 
-        [Required]
-        [Display(Name = "Email Address")]
-        public string Email { get; set; }
+        public int Seats { get; set; }
 
-        [Required]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
-
-        [EqualTo("Password")]
-        [Display(Name = "Confirm Password")]
-        public string ConfirmPassword { get; set; }
-    }
-
-    public class LoginMemberModel
-    {
-        [Required]
-        [Display(Name = "Username")]
-        public string Username { get; set; }
-
-        [Required]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
-
-        [Display(Name = "Remember Me?")]
-        public bool RememberMe { get; set; }
-    }
-
-    public class ChangeMemberModel
-    {
-        [Required]
-        public int MemberID { get; set; }
-        
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
-
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
-
-        [Display(Name = "Email Address")]
-        public string Email { get; set; }
-
-        [Display(Name = "Password")]
-        public string Password { get; set; }
-    }
-
-    public class ResetMemberPasswordModel
-    {
-        [Required]
-        [Display(Name = "Username")]
-        public string Username { get; set; }
-    }
+        public virtual ICollection<Member> Members { get; set; }
+    }     
 }

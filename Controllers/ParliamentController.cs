@@ -20,14 +20,14 @@ namespace Politiq.Controllers
         [HttpPost]
         public int Open()
         {
-            var lastSession = db.LegislativeSessions.OrderByDescending(p => p.Ending).FirstOrDefault();
+            var lastSession = db.CommonsSessions.OrderByDescending(p => p.Ending).FirstOrDefault();
 
             if (lastSession != null && lastSession.Ending > DateTime.Now)
             {
                 return 1;
             }
 
-            var newSession = new LegislativeSession
+            var newSession = new CommonsSession
                 {
                     Opening = DateTime.Now,
                     Ending = DateTime.Now.AddYears(5),
@@ -53,7 +53,7 @@ namespace Politiq.Controllers
                 }
             }
 
-            db.LegislativeSessions.Add(newSession);
+            db.CommonsSessions.Add(newSession);
             db.SaveChanges();
 
             return 0;
@@ -62,7 +62,7 @@ namespace Politiq.Controllers
         [HttpPost]
         public int Prorogue()
         {
-            var lastSession = db.LegislativeSessions.OrderByDescending(p => p.Ending).FirstOrDefault();
+            var lastSession = db.CommonsSessions.OrderByDescending(p => p.Ending).FirstOrDefault();
 
             if (lastSession.Ending < DateTime.Now)
             {
@@ -79,7 +79,7 @@ namespace Politiq.Controllers
         [HttpPost]
         public int Dissolve()
         {
-            var lastSession = db.LegislativeSessions.OrderByDescending(p => p.Ending).FirstOrDefault();
+            var lastSession = db.CommonsSessions.OrderByDescending(p => p.Ending).FirstOrDefault();
 
             if (lastSession.Dissolved == true)
             {

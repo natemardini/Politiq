@@ -36,3 +36,14 @@ C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq\bin\EntityFramew
 C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq\obj\Debug\Politiq.dll
 C:\Users\C. Yehia\Documents\Visual Studio 2010\Projects\Politiq\obj\Debug\Politiq.pdb
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\PolSim\bin\Politiq.dll
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\PolSim\bin\Politiq.pdb
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\PolSim\bin\DataAnnotationsExtensions.ClientValidation.dll
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\PolSim\bin\DataAnnotationsExtensions.dll
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\PolSim\bin\Devtalk.EF.CodeFirst.dll
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\PolSim\bin\EntityFramework.dll
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\PolSim\bin\WebActivator.dll
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\PolSim\bin\EntityFramework.xml
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\PolSim\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\PolSim\obj\Debug\Politiq.dll
+C:\Users\cyehia\Documents\Visual Studio 2010\Projects\PolSim\obj\Debug\Politiq.pdb

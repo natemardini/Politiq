@@ -82,6 +82,7 @@
     <Compile Include="App_Start\DontDropDbJustCreateTablesIfModelChangedStart.cs" />
     <Compile Include="App_Start\RegisterClientValidationExtensions.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BillController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParliamentController.cs" />
@@ -98,7 +99,8 @@
     <Compile Include="Models\ObjectModel\Legislation.cs" />
     <Compile Include="Models\ObjectModel\Member.cs" />
     <Compile Include="Models\ObjectModel\Parliament.cs" />
-    <Compile Include="Models\ViewModel\LegislationVM.cs" />
+    <Compile Include="Models\ViewModel\LegislationViews.cs" />
+    <Compile Include="Models\ViewModel\MemberViews.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

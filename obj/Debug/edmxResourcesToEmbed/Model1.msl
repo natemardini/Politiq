@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="db3705ModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="Commons">
+      <EntityTypeMapping TypeName="db3705Model.Common">
+        <MappingFragment StoreEntitySet="Commons">
+          <ScalarProperty Name="CommonsID" ColumnName="CommonsID" />
+          <ScalarProperty Name="SeatCount" ColumnName="SeatCount" />
+          <ScalarProperty Name="Opened" ColumnName="Opened" />
+          <ScalarProperty Name="Ended" ColumnName="Ended" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Legislations">
+      <EntityTypeMapping TypeName="db3705Model.Legislation">
+        <MappingFragment StoreEntitySet="Legislations">
+          <ScalarProperty Name="LegislationID" ColumnName="LegislationID" />
+          <ScalarProperty Name="BillNumber" ColumnName="BillNumber" />
+          <ScalarProperty Name="OriginatingChamber" ColumnName="OriginatingChamber" />
+          <ScalarProperty Name="BillType" ColumnName="BillType" />
+          <ScalarProperty Name="LongTitle" ColumnName="LongTitle" />
+          <ScalarProperty Name="ShortTile" ColumnName="ShortTile" />
+          <ScalarProperty Name="Preamble" ColumnName="Preamble" />
+          <ScalarProperty Name="Confidence" ColumnName="Confidence" />
+          <ScalarProperty Name="Stage_StageID" ColumnName="Stage_StageID" />
+          <ScalarProperty Name="Sponsor_MemberID" ColumnName="Sponsor_MemberID" />
+          <ScalarProperty Name="Parliament_LegislativeSessionID" ColumnName="Parliament_LegislativeSessionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LegislativeSessions">
+      <EntityTypeMapping TypeName="db3705Model.LegislativeSession">
+        <MappingFragment StoreEntitySet="LegislativeSessions">
+          <ScalarProperty Name="LegislativeSessionID" ColumnName="LegislativeSessionID" />
+          <ScalarProperty Name="Legislature" ColumnName="Legislature" />
+          <ScalarProperty Name="Session" ColumnName="Session" />
+          <ScalarProperty Name="Opening" ColumnName="Opening" />
+          <ScalarProperty Name="Ending" ColumnName="Ending" />
+          <ScalarProperty Name="Dissolved" ColumnName="Dissolved" />
+          <ScalarProperty Name="BillRez" ColumnName="BillRez" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Members">
+      <EntityTypeMapping TypeName="db3705Model.Member">
+        <MappingFragment StoreEntitySet="Members">
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+          <ScalarProperty Name="Stage_StageID" ColumnName="Stage_StageID" />
+          <ScalarProperty Name="Stage_StageID1" ColumnName="Stage_StageID1" />
+          <ScalarProperty Name="Stage_StageID2" ColumnName="Stage_StageID2" />
+          <ScalarProperty Name="VoteHistory_VoteHistoryID" ColumnName="VoteHistory_VoteHistoryID" />
+          <ScalarProperty Name="VoteHistory_VoteHistoryID1" ColumnName="VoteHistory_VoteHistoryID1" />
+          <ScalarProperty Name="VoteHistory_VoteHistoryID2" ColumnName="VoteHistory_VoteHistoryID2" />
+          <ScalarProperty Name="Party_PartyID" ColumnName="Party_PartyID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Parties">
+      <EntityTypeMapping TypeName="db3705Model.Party">
+        <MappingFragment StoreEntitySet="Parties">
+          <ScalarProperty Name="PartyID" ColumnName="PartyID" />
+          <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+          <ScalarProperty Name="Abbrev" ColumnName="Abbrev" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Seats" ColumnName="Seats" />
+          <ScalarProperty Name="Commons_CommonsID" ColumnName="Commons_CommonsID" />
+          <ScalarProperty Name="Commons_CommonsID1" ColumnName="Commons_CommonsID1" />
+          <ScalarProperty Name="Commons_CommonsID2" ColumnName="Commons_CommonsID2" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stages">
+      <EntityTypeMapping TypeName="db3705Model.Stage">
+        <MappingFragment StoreEntitySet="Stages">
+          <ScalarProperty Name="StageID" ColumnName="StageID" />
+          <ScalarProperty Name="Reading" ColumnName="Reading" />
+          <ScalarProperty Name="LastMovement" ColumnName="LastMovement" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="db3705Model.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VoteHistories">
+      <EntityTypeMapping TypeName="db3705Model.VoteHistory">
+        <MappingFragment StoreEntitySet="VoteHistories">
+          <ScalarProperty Name="VoteHistoryID" ColumnName="VoteHistoryID" />
+          <ScalarProperty Name="Yeas" ColumnName="Yeas" />
+          <ScalarProperty Name="Nays" ColumnName="Nays" />
+          <ScalarProperty Name="Abstains" ColumnName="Abstains" />
+          <ScalarProperty Name="ForBill_LegislationID" ColumnName="ForBill_LegislationID" />
+          <ScalarProperty Name="AtStage_StageID" ColumnName="AtStage_StageID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

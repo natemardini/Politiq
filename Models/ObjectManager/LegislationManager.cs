@@ -16,7 +16,7 @@ namespace Politiq.Models.ObjectManager
 
         public int Save(NewLegislationView legislation)
         {
-            var currentSession = db.LegislativeSessions.Where(p => p.Ending > DateTime.Now);
+            var currentSession = db.CommonsSessions.Where(p => p.Ending > DateTime.Now);
             
             if (currentSession.Any())
             {
@@ -38,9 +38,6 @@ namespace Politiq.Models.ObjectManager
                 newLegislation.Stage = new Stage
                 {
                     Reading = 0,
-                    VotesFor = null,
-                    VotesAgainst = null,
-                    Abstentions = null,
                     LastMovement = DateTime.Now
                 };
 

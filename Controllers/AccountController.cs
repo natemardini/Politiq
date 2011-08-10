@@ -34,8 +34,9 @@ namespace Politiq.Controllers
                         MemberManager memberManager = new MemberManager();
                         if (!memberManager.UsernameExist(newMember.Username))
                         {
-                            memberManager.Add(newMember);
-                            FormsAuthentication.SetAuthCookie(newMember.Username, false);
+                            var registeredMember = memberManager.Add(newMember);
+                            FormsAuthentication.SetAuthCookie(registeredMember.Username, false);
+
                             return RedirectToAction("Welcome", "Home");
                         }
                         else
@@ -48,7 +49,6 @@ namespace Politiq.Controllers
                 catch (Exception e)
                 {
                     ModelState.AddModelError("", e.ToString());
-                    
                 }
 
                 return View(newMember);
@@ -72,14 +72,16 @@ namespace Politiq.Controllers
 
                 if (Crypto.VerifyHashedPassword(currentMember.Password, returningMember.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(returningMember.Username.ToLower(), returningMember.RememberMe);
+                    FormsAuthentication.SetAuthCookie(returningMember.Username, returningMember.RememberMe);
+                    currentMember.LastActivity = DateTime.Now; 
+                    db.SaveChanges();
+
                     return RedirectToAction("Welcome", "Home");
                 }
                 else
                 {
                     ModelState.AddModelError("", "Incorrect password.");
                 }
-
             }
             catch
             {
@@ -115,6 +117,9 @@ namespace Politiq.Controllers
 
                 MemberManager memberManager = new MemberManager();
                 memberManager.ResetPassword(currentMember);
+
+                currentMember.LastActivity = DateTime.Now;
+                db.SaveChanges();
             }
             catch (Exception)
             {
@@ -164,11 +169,10 @@ namespace Politiq.Controllers
             }
         }
 
-        // GET: /Account/Delete?id=#
+        // DELETE: /Account/Delete?id=#
         [HttpDelete]
         public EmptyResult DeleteConfirm(int id)
         {
-
                 db.Members.Remove(db.Members.Find(id));
                 db.SaveChanges();
                 FormsAuthentication.SignOut();

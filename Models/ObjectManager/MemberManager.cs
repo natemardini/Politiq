@@ -13,7 +13,7 @@ namespace Politiq.Models.ObjectManager
     {
         private DAL db = new DAL();
 
-        public void Add(NewMemberModel newMember)
+        public Member Add(NewMemberModel newMember)
         {
             Member member = new Member
             {
@@ -21,12 +21,14 @@ namespace Politiq.Models.ObjectManager
                 FirstName = newMember.FirstName,
                 LastName = newMember.LastName,
                 Email = newMember.Email,
+                LastActivity = DateTime.Now,
                 Password = Crypto.HashPassword(newMember.Password)
             };
 
             db.Members.Add(member);
             db.SaveChanges();
-            
+
+            return member;
         }
 
         public void Change(ChangeMemberModel member)
