@@ -36,6 +36,8 @@ namespace Politiq.Models.ObjectModel
         public DateTime LastActivity { get; set; }
 
         public virtual ICollection<Ballot> VoteRecord { get; set; }
+
+        public virtual ICollection<Message> Messages { get; set; }
     }
 
     public class Role
@@ -48,7 +50,7 @@ namespace Politiq.Models.ObjectModel
 
         public string LongName { get; set; }
 
-        public IList<int> AccessClearance { get; set; }
+        public int AccessClearance { get; set; }
 
         public virtual ICollection<Member> WithMembers { get; set; }
 
@@ -66,6 +68,10 @@ namespace Politiq.Models.ObjectModel
 
         public int Seats { get; set; }
 
+        public virtual CommonsGroup House_Side { get; set; }
+
         public virtual ICollection<Member> Members { get; set; }
+
+        public virtual ICollection<Message> Thread { get; set; }
     }     
 }

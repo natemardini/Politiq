@@ -98,6 +98,7 @@
     <Compile Include="Models\DAL.cs" />
     <Compile Include="Models\ObjectModel\Legislation.cs" />
     <Compile Include="Models\ObjectModel\Member.cs" />
+    <Compile Include="Models\ObjectModel\Message.cs" />
     <Compile Include="Models\ObjectModel\Parliament.cs" />
     <Compile Include="Models\ViewModel\LegislationViews.cs" />
     <Compile Include="Models\ViewModel\MemberViews.cs" />

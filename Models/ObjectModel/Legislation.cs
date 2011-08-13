@@ -9,7 +9,7 @@ namespace Politiq.Models.ObjectModel
 {
     // Model Entities
 
-    public class Legislation
+    public class Legislation 
     {
         public int LegislationID { get; set; }
        
@@ -37,6 +37,7 @@ namespace Politiq.Models.ObjectModel
 
         public virtual ICollection<VoteHistory> Hansard { get; set; }
 
+        public virtual ICollection<Message> Thread { get; set; }
     }
 
     public class Provision
@@ -52,6 +53,23 @@ namespace Politiq.Models.ObjectModel
         public virtual Member Proponent { get; set; }
 
         public virtual Legislation InBill { get; set; }
+    }
+
+    public class Motion 
+    {
+        public int MotionID { get; set; }
+
+        public virtual Member Proponent { get; set; }
+
+        public string Body { get; set; }
+
+        public virtual Stage Stage { get; set; }
+
+        public virtual CommonsSession Parliament { get; set; }
+
+        public virtual ICollection<VoteHistory> Hansard { get; set; }
+
+        public virtual ICollection<Message> Thread { get; set; }
     }
 
     public class Enactment
@@ -114,6 +132,8 @@ namespace Politiq.Models.ObjectModel
     public class Ballot
     {
         public int BallotID { get; set; }
+
+        public virtual Stage Stage { get; set; }
 
         public int Vote { get; set; }                      // 1: Yea, 2: Nay, 3: Abstain
 

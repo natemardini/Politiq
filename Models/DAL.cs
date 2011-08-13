@@ -12,6 +12,7 @@ namespace Politiq.Models
         public DbSet<Member> Members { get; set; }
         public DbSet<Legislation> Legislations { get; set; }
         public DbSet<Provision> Provisions { get; set; }
+        public DbSet<Motion> Motions { get; set; }
         public DbSet<OiC> OiCs { get; set; }
         public DbSet<CommonsSession> CommonsSessions { get; set; }
         public DbSet<Senate> Senate { get; set; }
@@ -20,6 +21,8 @@ namespace Politiq.Models
         public DbSet<Ballot> Ballots { get; set; }
         public DbSet<VoteHistory> Hansard { get; set; }
         public DbSet<Update> Updates { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Private_Message> Private_Messages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -38,8 +41,7 @@ namespace Politiq.Models
             modelBuilder.Entity<Role>()
                         .HasMany(m => m.WithMembers)
                         .WithMany();
-        }
-    
+        }   
     }
     
     public class Update

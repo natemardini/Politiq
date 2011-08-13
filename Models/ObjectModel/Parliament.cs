@@ -27,16 +27,24 @@ namespace Politiq.Models.ObjectModel
 
         public bool BillRez { get; set; }
 
+        public virtual ICollection<CommonsGroup> Composition { get; set; }
+
         public virtual ICollection<Legislation> Bills { get; set; } 
     } 
 
-    public class Side
+    public class CommonsGroup
     {
-        public int SideID { get; set; }      // 1 = Government, 2 = OO, 3 = Third Party Oppositions
+        public int CommonsGroupID { get; set; }      
 
         public string Name { get; set; }
 
-        public ICollection<Party> PartiesComposed { get; set; }
+        public int Side { get; set; }                // 1 = Government, 2 = OO, 3 = Third Party Oppositions
+
+        public virtual CommonsSession CurrentSession { get; set; }
+
+        public virtual ICollection<Party> Parties { get; set; }
+
+        public virtual ICollection<Message> Thread { get; set; }
     }
     
     public class Senate 
